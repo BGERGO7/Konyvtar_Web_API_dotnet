@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../buildMultiTargeting/KonyvtarWebApi_BG.props" />
+</Project>

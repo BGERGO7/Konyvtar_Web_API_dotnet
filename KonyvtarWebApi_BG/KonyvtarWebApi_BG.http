@@ -1,0 +1,6 @@
+@KonyvtarWebApi_BG_HostAddress = http://localhost:5186
+
+GET {{KonyvtarWebApi_BG_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
