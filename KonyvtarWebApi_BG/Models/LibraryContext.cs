@@ -1,6 +1,7 @@
-namespace KonyvtarWebApi_BG.Models;
-
 using Microsoft.EntityFrameworkCore;
+using KonyvtarWebApi_BG.Models;
+
+namespace KonyvtarWebApi_BG.Models;
 
 public class LibraryContext : DbContext
 {
@@ -9,5 +10,5 @@ public class LibraryContext : DbContext
     {
     }
 
-    
+    public DbSet<Student> Students { get; set; } = null!;
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KonyvtarWebApi_BG")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+55241388c6866cd59a651d096305e677e79f6e4f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8f327fd16772d25a0961fd266bae43375844560a")]
 [assembly: System.Reflection.AssemblyProductAttribute("KonyvtarWebApi_BG")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KonyvtarWebApi_BG")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
