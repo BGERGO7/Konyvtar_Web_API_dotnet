@@ -16,4 +16,6 @@ public class LibraryContext : DbContext
     public DbSet<Genre> Genres { get; set; } = null!;
     public DbSet<Borrow> Borrows { get; set; } = null!;
     public DbSet<LibraryCard> LibraryCards { get; set; } = null!;
+    public DbSet<BookAuthor> BookAuthors { get; set; } = null!;
+    public DbSet<BookGenre> BookGenres { get; set; } = null!;   
 }

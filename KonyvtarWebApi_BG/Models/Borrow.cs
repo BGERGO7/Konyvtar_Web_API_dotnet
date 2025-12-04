@@ -13,8 +13,9 @@ namespace KonyvtarWebApi_BG.Models
         [Required]
         public int StudentId { get; set; }
 
+        [ForeignKey("StudentId")]
         [JsonIgnore]
-        public List<Student>? Students { get; set; }
+        public Student? Student { get; set; }
 
         [Required]
         public int BookId { get; set; }

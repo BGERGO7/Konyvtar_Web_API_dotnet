@@ -33,15 +33,9 @@ namespace KonyvtarWebApi_BG.Models
         [EmailAddress]
         public string EmailAddress { get; set; }
 
-        public int LibraryCardId { get; set; }
-        [ForeignKey("LibraryCardId")]
-
         [JsonIgnore]
         public LibraryCard LibraryCard { get; set; }
 
-        [Required]
-        public int BorrowId { get; set; }
-        [ForeignKey("BorrowId")]
         [JsonIgnore]
         public List<Borrow>? Borrows { get; set; }
 
