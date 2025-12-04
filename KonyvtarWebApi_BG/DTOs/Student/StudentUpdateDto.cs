@@ -2,9 +2,9 @@ using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace KonyvtarWebApi_BG.Models
+namespace KonyvtarWebApi_BG.DTOs
 {
-    public class Student
+    public class StudentUpdateDto
     {
         [Required]
         public int StudentId { get; set; }
@@ -32,19 +32,8 @@ namespace KonyvtarWebApi_BG.Models
         [EmailAddress]
         public string EmailAddress { get; set; }
 
-        [JsonIgnore]
-        public LibraryCard LibraryCard { get; set; }
-
-        [JsonIgnore]
-        public List<Borrow>? Borrows { get; set; }
-
         [Required]
         public bool Active { get; set; }
-
-        [Required]
-        public DateTime Created { get; set; }
-
-        public DateTime? Modified { get; set; }
     }
 }
 

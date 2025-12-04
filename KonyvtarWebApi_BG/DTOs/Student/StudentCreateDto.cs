@@ -1,14 +1,11 @@
-using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
-namespace KonyvtarWebApi_BG.Models
+namespace KonyvtarWebApi_BG.DTOs
 {
-    public class Student
+    public class StudentCreateDto
     {
-        [Required]
-        public int StudentId { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string StudentName { get; set; }
@@ -32,19 +29,6 @@ namespace KonyvtarWebApi_BG.Models
         [EmailAddress]
         public string EmailAddress { get; set; }
 
-        [JsonIgnore]
-        public LibraryCard LibraryCard { get; set; }
-
-        [JsonIgnore]
-        public List<Borrow>? Borrows { get; set; }
-
-        [Required]
-        public bool Active { get; set; }
-
-        [Required]
-        public DateTime Created { get; set; }
-
-        public DateTime? Modified { get; set; }
     }
 }
 
