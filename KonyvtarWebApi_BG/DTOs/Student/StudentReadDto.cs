@@ -1,6 +1,3 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-
 namespace KonyvtarWebApi_BG.DTOs
 {
     public class StudentReadDto

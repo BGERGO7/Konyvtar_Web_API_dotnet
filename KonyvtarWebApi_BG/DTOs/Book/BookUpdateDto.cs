@@ -1,9 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
-namespace KonyvtarWebApi_BG.Models
+namespace KonyvtarWebApi_BG.DTOs
 {
-    public class Book
+    public class BookUpdateDto
     {
         [Required]
         public int BookId { get; set; }
@@ -47,22 +46,10 @@ namespace KonyvtarWebApi_BG.Models
         [Required]
         public int MaxRentDays { get; set; }
 
-        [JsonIgnore]
-        public List<Borrow>? Borrows { get; set; }
-
-        [JsonIgnore]
-        public List<BookAuthor>? BookAuthors { get; set; }
-
-        [JsonIgnore]
-        public List<BookGenre>? BookGenres { get; set; }
-
+        [Required]
+        public List<int>? AuthorIds { get; set; }
 
         [Required]
-        public bool Active { get; set; }
-
-        [Required]
-        public DateTime Created { get; set; }
-
-        public DateTime? Modified { get; set; }
+        public List<int>? GenreIds { get; set; }    
     }
 }
