@@ -12,14 +12,22 @@ namespace KonyvtarWebApi_BG.Models
 
         [Required]
         public int StudentId { get; set; }
-        [ForeignKey("StudentId")]
+
         [JsonIgnore]
-        public Student Student { get; set; }
+        public Student? Student { get; set; }
 
         [Required]
         public DateTime IssueDate { get; set; }
 
         [Required]
         public DateTime ExpiryDate { get; set; }
+
+        [Required]
+        public bool Active { get; set; }
+
+        [Required]
+        public DateTime Created { get; set; }
+
+        public DateTime? Modified { get; set; }
     }
 }

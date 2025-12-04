@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace KonyvtarWebApi_BG.Models
@@ -46,11 +47,24 @@ namespace KonyvtarWebApi_BG.Models
         public string Publisher { get; set; }
 
         [Required]
-        public List<Genre> Genres { get; set; }
+        public int MaxRentDays { get; set; }
 
-        public List<Author> Authors { get; set; }
+        [JsonIgnore]
+        public List<Borrow>? Borrows { get; set; }
+
+        [JsonIgnore]
+        public List<BookAuthor>? BookAuthors { get; set; }
+
+        [JsonIgnore]
+        public List<BookGenre>? BookGenres { get; set; }
+
 
         [Required]
-        public int MaxRentDays { get; set; }
+        public bool Active { get; set; }
+
+        [Required]
+        public DateTime Created { get; set; }
+
+        public DateTime? Modified { get; set; }
     }
 }

@@ -12,9 +12,9 @@ namespace KonyvtarWebApi_BG.Models
 
         [Required]
         public int StudentId { get; set; }
-        [ForeignKey("StudentId")]
+
         [JsonIgnore]
-        public Student Student { get; set; }
+        public List<Student>? Students { get; set; }
 
         [Required]
         public int BookId { get; set; }
@@ -29,6 +29,14 @@ namespace KonyvtarWebApi_BG.Models
         public DateTime DueDate { get; set; } //Kolcsenzes datum + Book.MaxRentDays
 
         public DateTime? ReturnDate { get; set; }
+
+        [Required]
+        public bool Active { get; set; }
+
+        [Required]
+        public DateTime Created { get; set; }
+
+        public DateTime? Modified { get; set; }
 
     }
 }

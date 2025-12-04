@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace KonyvtarWebApi_BG.Models
@@ -12,6 +13,15 @@ namespace KonyvtarWebApi_BG.Models
         [MaxLength(50)]
         public string GenreName { get; set; }
 
-        public List<Book> Books { get; set; }
+        [JsonIgnore]
+        public List<BookGenre> BookGenres { get; set; }
+
+        [Required]
+        public bool Active { get; set; }
+
+        [Required]
+        public DateTime Created { get; set; }
+
+        public DateTime? Modified { get; set; }
     }
 }
