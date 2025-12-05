@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KonyvtarWebApi_BG.Models;
 using KonyvtarWebApi_BG.DTOs.Student;
+using KonyvtarWebApi_BG.DTOs.Stats;
 
 namespace KonyvtarWebApi_BG.Controllers
 {
@@ -102,27 +98,64 @@ namespace KonyvtarWebApi_BG.Controllers
         }
 
 
-       /*
-        // GET: api/students/{id}/borrows
+       // GET: api/students/{id}/borrows
         [HttpGet("{id}/borrows")]
-        public async Task<ActionResult<StudentGetBorrows>> GetStudentBorrows(int id)
+        public async Task<ActionResult<StudentBorrowsStatsDto>> GetStudentBorrows(int id)
         {
+            // 1. Eager Loading a Student -> Borrows -> Book -> BookAuthors -> Author láncra
             var student = await _context.Students
-                .Include(x => x.Borrows)
-                .FirstOrDefaultAsync(y => y.StudentId == id);
+                .Include(s => s.Borrows!)
+                .ThenInclude(b => b.Book!)
+                .ThenInclude(bk => bk.BookAuthors!)
+                .ThenInclude(ba => ba.Author)
+                .FirstOrDefaultAsync(s => s.StudentId == id);
 
-            if (student == null)
-            {
-                return NotFound();
-            }
+                if (student == null)
+                {
+                    return NotFound();
+                }
+    
+            // 2. Projektálás (Mappelés) a StudentBorrowsStatsDto-ra
+            // EF Core Projection (Select) használata az adatok alakítására.
 
-            return new StudentGetBorrows
+            // A kölcsönzések listájának elkészítése:
+            var borrowDetails = student.Borrows
+                // Rendezés (pl. legújabb kölcsönzések elöl)
+                .OrderByDescending(b => b.BorrowDate) 
+                .Select(b => new StudentBorrowDetailsDto
+                {
+                    BorrowId = b.BorrowId,
+                    BorrowDate = b.BorrowDate,
+                    DueDate = b.DueDate,
+                    ReturnDate = b.ReturnDate,
+                    
+                    // Kiszámított tulajdonság: Lejárt-e (ha nincs visszahozva ÉS az esedékesség elmúlt)
+                    //IsOverdue = b.ReturnDate == null && b.DueDate < DateTime.UtcNow, 
+
+                    // Könyv adatok
+                    BookId = b.BookId,
+                    HungarianTitle = b.Book.HungarianTitle,
+                    OriginalTitle = b.Book.OriginalTitle,
+                    
+                    // Szerző nevek kilapítása
+                    AuthorNames = b.Book.BookAuthors
+                        .Select(ba => ba.Author.AuthorName)
+                        .ToList()
+                })
+                .ToList();
+
+            // Végleges Statisztikai DTO elkészítése
+            return new StudentBorrowsStatsDto
             {
                 StudentId = student.StudentId,
-                BookNames = student.Borrows
+                StudentName = student.StudentName,
+                TotalBorrows = student.Borrows.Count,
+                // Aktív kölcsönzés: Nincs ReturnDate beállítva
+                ActiveBorrowsCount = student.Borrows.Count(b => b.ReturnDate == null), 
+                
+                Borrows = borrowDetails
             };
         }
-       */
 
         // PUT: api/students/{id}/status
         [HttpPut("{id}/status")]

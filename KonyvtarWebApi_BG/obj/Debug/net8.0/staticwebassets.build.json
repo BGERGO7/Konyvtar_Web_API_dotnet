@@ -1,1 +1,11 @@
-{"Version":1,"Hash":"ABbdLDHA/f2G8btbhbGr9ox41qjTAJ/Sk2SPVqEa+w0=","Source":"KonyvtarWebApi_BG","BasePath":"_content/KonyvtarWebApi_BG","Mode":"Default","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}
+{
+  "Version": 1,
+  "Hash": "5LAXI+DMrA/tXm02FGvCHTASqbpsYQkuADbAaEBablk=",
+  "Source": "KonyvtarWebApi_BG",
+  "BasePath": "_content/KonyvtarWebApi_BG",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
