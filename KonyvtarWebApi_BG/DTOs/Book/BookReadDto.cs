@@ -1,4 +1,4 @@
-namespace KonyvtarWebApi_BG.DTOs
+namespace KonyvtarWebApi_BG.DTOs.Book
 {
     public class BookReadDto
     {

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace KonyvtarWebApi_BG.DTOs
+namespace KonyvtarWebApi_BG.DTOs.Student
 {
     public class StudentCreateDto
     {

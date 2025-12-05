@@ -3,12 +3,52 @@
   "WorkspaceRootPath": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|u:\\13\\backend\\konyvtar_web_api_dotnet\\konyvtarwebapi_bg\\models\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|solutionrelative:konyvtarwebapi_bg\\models\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|u:\\13\\backend\\konyvtar_web_api_dotnet\\konyvtarwebapi_bg\\dtos\\librarycard\\librarycardreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|solutionrelative:konyvtarwebapi_bg\\dtos\\librarycard\\librarycardreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|u:\\13\\backend\\konyvtar_web_api_dotnet\\konyvtarwebapi_bg\\models\\borrow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|solutionrelative:konyvtarwebapi_bg\\models\\borrow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|u:\\13\\backend\\konyvtar_web_api_dotnet\\konyvtarwebapi_bg\\dtos\\librarycard\\librarycardchangestatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|solutionrelative:konyvtarwebapi_bg\\dtos\\librarycard\\librarycardchangestatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|u:\\13\\backend\\konyvtar_web_api_dotnet\\konyvtarwebapi_bg\\dtos\\librarycard\\librarycardcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|solutionrelative:konyvtarwebapi_bg\\dtos\\librarycard\\librarycardcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|u:\\13\\backend\\konyvtar_web_api_dotnet\\konyvtarwebapi_bg\\dtos\\librarycard\\librarycardchangedate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|solutionrelative:konyvtarwebapi_bg\\dtos\\librarycard\\librarycardchangedate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|u:\\13\\backend\\konyvtar_web_api_dotnet\\konyvtarwebapi_bg\\dtos\\book\\manageauthor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|solutionrelative:konyvtarwebapi_bg\\dtos\\book\\manageauthor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|u:\\13\\backend\\konyvtar_web_api_dotnet\\konyvtarwebapi_bg\\dtos\\author\\authorstatusdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|solutionrelative:konyvtarwebapi_bg\\dtos\\author\\authorstatusdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|u:\\13\\backend\\konyvtar_web_api_dotnet\\konyvtarwebapi_bg\\dtos\\author\\authorupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|solutionrelative:konyvtarwebapi_bg\\dtos\\author\\authorupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|u:\\13\\backend\\konyvtar_web_api_dotnet\\konyvtarwebapi_bg\\dtos\\genre\\genreupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|solutionrelative:konyvtarwebapi_bg\\dtos\\genre\\genreupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|u:\\13\\backend\\konyvtar_web_api_dotnet\\konyvtarwebapi_bg\\dtos\\book\\bookupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|solutionrelative:konyvtarwebapi_bg\\dtos\\book\\bookupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|u:\\13\\backend\\konyvtar_web_api_dotnet\\konyvtarwebapi_bg\\dtos\\book\\bookcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|solutionrelative:konyvtarwebapi_bg\\dtos\\book\\bookcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|u:\\13\\backend\\konyvtar_web_api_dotnet\\konyvtarwebapi_bg\\dtos\\author\\authorreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|solutionrelative:konyvtarwebapi_bg\\dtos\\author\\authorreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|u:\\13\\backend\\konyvtar_web_api_dotnet\\konyvtarwebapi_bg\\dtos\\author\\authorcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{624B445A-C852-9719-2A8F-407A119BF7C4}|KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj|solutionrelative:konyvtarwebapi_bg\\dtos\\author\\authorcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,38 +61,160 @@
           "SelectedChildIndex": 1,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LibraryCardChangeStatus.cs",
+              "DocumentMoniker": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\LibraryCard\\LibraryCardChangeStatus.cs",
+              "RelativeDocumentMoniker": "KonyvtarWebApi_BG\\DTOs\\LibraryCard\\LibraryCardChangeStatus.cs",
+              "ToolTip": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\LibraryCard\\LibraryCardChangeStatus.cs",
+              "RelativeToolTip": "KonyvtarWebApi_BG\\DTOs\\LibraryCard\\LibraryCardChangeStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-05T07:28:48.908Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Book.cs",
-              "DocumentMoniker": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\Models\\Book.cs",
-              "RelativeDocumentMoniker": "KonyvtarWebApi_BG\\Models\\Book.cs",
-              "ToolTip": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\Models\\Book.cs",
-              "RelativeToolTip": "KonyvtarWebApi_BG\\Models\\Book.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAA9wAAAAAAAAAAAAAAAAA==",
+              "Title": "LibraryCardReadDto.cs",
+              "DocumentMoniker": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\LibraryCard\\LibraryCardReadDto.cs",
+              "RelativeDocumentMoniker": "KonyvtarWebApi_BG\\DTOs\\LibraryCard\\LibraryCardReadDto.cs",
+              "ToolTip": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\LibraryCard\\LibraryCardReadDto.cs",
+              "RelativeToolTip": "KonyvtarWebApi_BG\\DTOs\\LibraryCard\\LibraryCardReadDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-04T12:12:12.42Z",
+              "WhenOpened": "2025-12-05T07:26:35.44Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Borrow.cs",
-              "DocumentMoniker": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\Models\\Borrow.cs",
-              "RelativeDocumentMoniker": "KonyvtarWebApi_BG\\Models\\Borrow.cs",
-              "ToolTip": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\Models\\Borrow.cs",
-              "RelativeToolTip": "KonyvtarWebApi_BG\\Models\\Borrow.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAASAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "LibraryCardCreateDto.cs",
+              "DocumentMoniker": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\LibraryCard\\LibraryCardCreateDto.cs",
+              "RelativeDocumentMoniker": "KonyvtarWebApi_BG\\DTOs\\LibraryCard\\LibraryCardCreateDto.cs",
+              "ToolTip": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\LibraryCard\\LibraryCardCreateDto.cs",
+              "RelativeToolTip": "KonyvtarWebApi_BG\\DTOs\\LibraryCard\\LibraryCardCreateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-04T12:10:35.472Z",
+              "WhenOpened": "2025-12-05T07:25:12.735Z",
               "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LibraryCardChangeDate.cs",
+              "DocumentMoniker": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\LibraryCard\\LibraryCardChangeDate.cs",
+              "RelativeDocumentMoniker": "KonyvtarWebApi_BG\\DTOs\\LibraryCard\\LibraryCardChangeDate.cs",
+              "ToolTip": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\LibraryCard\\LibraryCardChangeDate.cs",
+              "RelativeToolTip": "KonyvtarWebApi_BG\\DTOs\\LibraryCard\\LibraryCardChangeDate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-05T07:30:35.629Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ManageAuthor.cs",
+              "DocumentMoniker": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\Book\\ManageAuthor.cs",
+              "RelativeDocumentMoniker": "KonyvtarWebApi_BG\\DTOs\\Book\\ManageAuthor.cs",
+              "ToolTip": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\Book\\ManageAuthor.cs",
+              "RelativeToolTip": "KonyvtarWebApi_BG\\DTOs\\Book\\ManageAuthor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-05T07:23:51.407Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AuthorStatusDto.cs",
+              "DocumentMoniker": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\Author\\AuthorStatusDto.cs",
+              "RelativeDocumentMoniker": "KonyvtarWebApi_BG\\DTOs\\Author\\AuthorStatusDto.cs",
+              "ToolTip": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\Author\\AuthorStatusDto.cs",
+              "RelativeToolTip": "KonyvtarWebApi_BG\\DTOs\\Author\\AuthorStatusDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-05T07:22:57.032Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "BookUpdateDto.cs",
+              "DocumentMoniker": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\Book\\BookUpdateDto.cs",
+              "RelativeDocumentMoniker": "KonyvtarWebApi_BG\\DTOs\\Book\\BookUpdateDto.cs",
+              "ToolTip": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\Book\\BookUpdateDto.cs",
+              "RelativeToolTip": "KonyvtarWebApi_BG\\DTOs\\Book\\BookUpdateDto.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAcwDcAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-05T07:20:59.193Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AuthorUpdateDto.cs",
+              "DocumentMoniker": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\Author\\AuthorUpdateDto.cs",
+              "RelativeDocumentMoniker": "KonyvtarWebApi_BG\\DTOs\\Author\\AuthorUpdateDto.cs",
+              "ToolTip": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\Author\\AuthorUpdateDto.cs",
+              "RelativeToolTip": "KonyvtarWebApi_BG\\DTOs\\Author\\AuthorUpdateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-05T07:19:24.287Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "BookCreateDto.cs",
+              "DocumentMoniker": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\Book\\BookCreateDto.cs",
+              "RelativeDocumentMoniker": "KonyvtarWebApi_BG\\DTOs\\Book\\BookCreateDto.cs",
+              "ToolTip": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\Book\\BookCreateDto.cs",
+              "RelativeToolTip": "KonyvtarWebApi_BG\\DTOs\\Book\\BookCreateDto.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAA9wC8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-05T07:16:56.369Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "GenreUpdateDto.cs",
+              "DocumentMoniker": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\Genre\\GenreUpdateDto.cs",
+              "RelativeDocumentMoniker": "KonyvtarWebApi_BG\\DTOs\\Genre\\GenreUpdateDto.cs",
+              "ToolTip": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\Genre\\GenreUpdateDto.cs",
+              "RelativeToolTip": "KonyvtarWebApi_BG\\DTOs\\Genre\\GenreUpdateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-05T07:20:12.704Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AuthorReadDto.cs",
+              "DocumentMoniker": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\Author\\AuthorReadDto.cs",
+              "RelativeDocumentMoniker": "KonyvtarWebApi_BG\\DTOs\\Author\\AuthorReadDto.cs",
+              "ToolTip": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\Author\\AuthorReadDto.cs",
+              "RelativeToolTip": "KonyvtarWebApi_BG\\DTOs\\Author\\AuthorReadDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-05T07:11:06.802Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AuthorCreateDto.cs",
+              "DocumentMoniker": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\Author\\AuthorCreateDto.cs",
+              "RelativeDocumentMoniker": "KonyvtarWebApi_BG\\DTOs\\Author\\AuthorCreateDto.cs",
+              "ToolTip": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\Author\\AuthorCreateDto.cs",
+              "RelativeToolTip": "KonyvtarWebApi_BG\\DTOs\\Author\\AuthorCreateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-05T07:11:57.281Z",
+              "EditorCaption": ""
             }
           ]
         }

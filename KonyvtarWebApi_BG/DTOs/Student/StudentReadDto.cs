@@ -1,4 +1,4 @@
-namespace KonyvtarWebApi_BG.DTOs
+namespace KonyvtarWebApi_BG.DTOs.Student
 {
     public class StudentReadDto
     {

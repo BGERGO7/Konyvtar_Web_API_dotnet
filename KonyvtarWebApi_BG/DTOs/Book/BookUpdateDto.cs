@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace KonyvtarWebApi_BG.DTOs
+namespace KonyvtarWebApi_BG.DTOs.Book
 {
     public class BookUpdateDto
     {
@@ -50,6 +50,9 @@ namespace KonyvtarWebApi_BG.DTOs
         public List<int>? AuthorIds { get; set; }
 
         [Required]
-        public List<int>? GenreIds { get; set; }    
+        public List<int>? GenreIds { get; set; }
+
+        [Required]
+        public bool Active { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace KonyvtarWebApi_BG.DTOs
+namespace KonyvtarWebApi_BG.DTOs.Book
 {
     public class BookCreateDto
     {
@@ -44,10 +44,8 @@ namespace KonyvtarWebApi_BG.DTOs
         [Required]
         public int MaxRentDays { get; set; }
 
-        [Required]
         public List<int>? AuthorIds { get; set; }
 
-        [Required]
         public List<int>? GenreIds { get; set; }    
     }
 }
