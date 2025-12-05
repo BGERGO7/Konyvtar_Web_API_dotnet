@@ -9,10 +9,10 @@ namespace KonyvtarWebApi_BG.Models
         public int BookId { get; set; }
         [ForeignKey("BookId")]
         [JsonIgnore]
-        public Book Book { get; set; }
+        public Book? Book { get; set; }
         public int GenreId { get; set; }
         [ForeignKey("GenreId")]
         [JsonIgnore]
-        public Genre Genre { get; set; }
+        public Genre? Genre { get; set; }
     }
 }

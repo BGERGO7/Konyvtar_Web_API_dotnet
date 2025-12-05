@@ -21,7 +21,7 @@ namespace KonyvtarWebApi_BG.Models
         public int BookId { get; set; }
         [ForeignKey("BookId")]
         [JsonIgnore]
-        public Book Book { get; set; }
+        public Book? Book { get; set; }
 
         [Required]
         public DateTime BorrowDate { get; set; }

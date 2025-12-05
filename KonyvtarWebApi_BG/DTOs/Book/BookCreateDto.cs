@@ -7,15 +7,15 @@ namespace KonyvtarWebApi_BG.DTOs.Book
         
         [Required]
         [MaxLength(200)]
-        public string HungarianTitle { get; set; }
+        public string? HungarianTitle { get; set; }
         
         [Required]
         [MaxLength(200)]
-        public string OriginalTitle { get; set; }
+        public string? OriginalTitle { get; set; }
         
         [Required]
         [MaxLength(200), MinLength(30)]
-        public string RecommendationText { get; set; }
+        public string? RecommendationText { get; set; }
         
         [Required]
         public int PublishedYear { get; set; }
@@ -39,7 +39,7 @@ namespace KonyvtarWebApi_BG.DTOs.Book
         }
 
         [Required]
-        public string Publisher { get; set; }
+        public string? Publisher { get; set; }
 
         [Required]
         public int MaxRentDays { get; set; }

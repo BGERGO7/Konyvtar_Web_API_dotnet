@@ -34,9 +34,9 @@ namespace KonyvtarWebApi_BG.Controllers
                     Active = x.Active,
                     Created = x.Created,
                     Modified = x.Modified,
-                    LibraryCardId = x.LibraryCard.LibraryCardId,
-                    CardIssueDate = x.LibraryCard.IssueDate,
-                    CardExpirationDate = x.LibraryCard.ExpiryDate
+                    LibraryCardId = x.LibraryCard!.LibraryCardId,
+                    CardIssueDate = x.LibraryCard!.IssueDate,
+                    CardExpirationDate = x.LibraryCard!.ExpiryDate
                 })
                 .ToListAsync();
         }
@@ -65,7 +65,7 @@ namespace KonyvtarWebApi_BG.Controllers
                 Active = student.Active,
                 Created = student.Created,
                 Modified = student.Modified,
-                LibraryCardId = student.LibraryCard.LibraryCardId,
+                LibraryCardId = student.LibraryCard!.LibraryCardId,
                 CardIssueDate = student.LibraryCard.IssueDate,
                 CardExpirationDate = student.LibraryCard.ExpiryDate
             };
@@ -88,7 +88,7 @@ namespace KonyvtarWebApi_BG.Controllers
             return new StudentGetLibraryCard
             {
                 StudentId = student.StudentId,
-                LibraryCardId=student.LibraryCard.LibraryCardId,
+                LibraryCardId=student.LibraryCard!.LibraryCardId,
                 IssueDate = student.LibraryCard.IssueDate,
                 ExpiryDate = student.LibraryCard.ExpiryDate,
                 LibrayCardActive = student.LibraryCard.Active,
@@ -119,7 +119,7 @@ namespace KonyvtarWebApi_BG.Controllers
             // EF Core Projection (Select) használata az adatok alakítására.
 
             // A kölcsönzések listájának elkészítése:
-            var borrowDetails = student.Borrows
+            var borrowDetails = student.Borrows!
                 // Rendezés (pl. legújabb kölcsönzések elöl)
                 .OrderByDescending(b => b.BorrowDate) 
                 .Select(b => new StudentBorrowDetailsDto
@@ -134,12 +134,12 @@ namespace KonyvtarWebApi_BG.Controllers
 
                     // Könyv adatok
                     BookId = b.BookId,
-                    HungarianTitle = b.Book.HungarianTitle,
+                    HungarianTitle = b.Book!.HungarianTitle,
                     OriginalTitle = b.Book.OriginalTitle,
                     
                     // Szerző nevek kilapítása
-                    AuthorNames = b.Book.BookAuthors
-                        .Select(ba => ba.Author.AuthorName)
+                    AuthorNames = b.Book.BookAuthors!
+                        .Select(ba => ba.Author!.AuthorName!)
                         .ToList()
                 })
                 .ToList();
@@ -149,7 +149,7 @@ namespace KonyvtarWebApi_BG.Controllers
             {
                 StudentId = student.StudentId,
                 StudentName = student.StudentName,
-                TotalBorrows = student.Borrows.Count,
+                TotalBorrows = student.Borrows!.Count,
                 // Aktív kölcsönzés: Nincs ReturnDate beállítva
                 ActiveBorrowsCount = student.Borrows.Count(b => b.ReturnDate == null), 
                 
@@ -221,12 +221,12 @@ namespace KonyvtarWebApi_BG.Controllers
             }
 
             student.StudentId = id;
-            student.StudentName = studentDto.StudentName;
-            student.PlaceOfBirth = studentDto.PlaceOfBirth;
+            student.StudentName = studentDto.StudentName!;
+            student.PlaceOfBirth = studentDto.PlaceOfBirth!;
             student.DateOfBirth = studentDto.DateOfBirth;
-            student.Address = studentDto.Address;
-            student.Class = studentDto.Class;
-            student.EmailAddress = studentDto.EmailAddress;
+            student.Address = studentDto.Address!;
+            student.Class = studentDto.Class!;
+            student.EmailAddress = studentDto.EmailAddress!;
             student.Active = studentDto.Active;
             student.Modified = DateTime.UtcNow;
 
@@ -256,12 +256,12 @@ namespace KonyvtarWebApi_BG.Controllers
         {
             var student = new Student
             {
-                StudentName = studentDto.StudentName,
-                PlaceOfBirth = studentDto.PlaceOfBirth,
+                StudentName = studentDto.StudentName!,
+                PlaceOfBirth = studentDto.PlaceOfBirth!,
                 DateOfBirth = studentDto.DateOfBirth,
-                Address = studentDto.Address,
-                Class = studentDto.Class,
-                EmailAddress = studentDto.EmailAddress,
+                Address = studentDto.Address!,
+                Class = studentDto.Class!,
+                EmailAddress = studentDto.EmailAddress!,
                 Created = DateTime.UtcNow,
                 Active = true
             };

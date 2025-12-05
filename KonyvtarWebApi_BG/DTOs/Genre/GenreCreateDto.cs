@@ -6,6 +6,6 @@ namespace KonyvtarWebApi_BG.DTOs.Genre
     {        
         [Required]
         [MaxLength(50)]
-        public string GenreName { get; set; }
+        public string? GenreName { get; set; }
     }
 }

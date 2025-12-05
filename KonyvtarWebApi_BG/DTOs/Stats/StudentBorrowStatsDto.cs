@@ -6,7 +6,7 @@ namespace KonyvtarWebApi_BG.DTOs.Stats
     {
         // Diák azonosító adatok
         public int StudentId { get; set; }
-        public string StudentName { get; set; }
+        public string? StudentName { get; set; }
 
         // Statisztikai összegzés
         public int TotalBorrows { get; set; }

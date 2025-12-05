@@ -10,17 +10,17 @@ namespace KonyvtarWebApi_BG.DTOs.Author
 
         [Required]
         [MaxLength(100)]
-        public string AuthorName { get; set; }
+        public string? AuthorName { get; set; }
 
         [Required]
         public DateTime DateOfBirth { get; set; }
 
         [Required]
         [MaxLength(100)]
-        public string PlaceOfBirth { get; set; }
+        public string? PlaceOfBirth { get; set; }
 
         [MaxLength(500)]
-        public string Biography { get; set; }
+        public string? Biography { get; set; }
 
         [Required]
         public bool Active { get; set; }

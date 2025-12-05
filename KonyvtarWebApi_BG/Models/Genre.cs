@@ -10,10 +10,10 @@ namespace KonyvtarWebApi_BG.Models
         
         [Required]
         [MaxLength(50)]
-        public string GenreName { get; set; }
+        public string? GenreName { get; set; }
 
         [JsonIgnore]
-        public List<BookGenre> BookGenres { get; set; }
+        public List<BookGenre>? BookGenres { get; set; }
 
         [Required]
         public bool Active { get; set; }
