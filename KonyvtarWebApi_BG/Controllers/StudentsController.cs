@@ -98,7 +98,7 @@ namespace KonyvtarWebApi_BG.Controllers
         }
 
 
-       // GET: api/students/{id}/borrows
+        // GET: api/students/{id}/borrows
         [HttpGet("{id}/borrows")]
         public async Task<ActionResult<StudentBorrowsStatsDto>> GetStudentBorrows(int id)
         {
