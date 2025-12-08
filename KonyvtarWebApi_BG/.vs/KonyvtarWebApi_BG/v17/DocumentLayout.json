@@ -1,0 +1,62 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{979E3D48-CDA3-96BA-FC2B-953C6900FFD8}|KonyvtarWebApi_BG.csproj|u:\\13\\backend\\konyvtar_web_api_dotnet\\konyvtarwebapi_bg\\controllers\\authorscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{979E3D48-CDA3-96BA-FC2B-953C6900FFD8}|KonyvtarWebApi_BG.csproj|solutionrelative:controllers\\authorscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{979E3D48-CDA3-96BA-FC2B-953C6900FFD8}|KonyvtarWebApi_BG.csproj|u:\\13\\backend\\konyvtar_web_api_dotnet\\konyvtarwebapi_bg\\dtos\\author\\authorcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{979E3D48-CDA3-96BA-FC2B-953C6900FFD8}|KonyvtarWebApi_BG.csproj|solutionrelative:dtos\\author\\authorcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthorCreateDto.cs",
+              "DocumentMoniker": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\Author\\AuthorCreateDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Author\\AuthorCreateDto.cs",
+              "ToolTip": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\DTOs\\Author\\AuthorCreateDto.cs",
+              "RelativeToolTip": "DTOs\\Author\\AuthorCreateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T10:54:40.738Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthorsController.cs",
+              "DocumentMoniker": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\Controllers\\AuthorsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AuthorsController.cs",
+              "ToolTip": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\Controllers\\AuthorsController.cs",
+              "RelativeToolTip": "Controllers\\AuthorsController.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAIwEMAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-08T10:51:03.329Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{56df62a4-05a3-4e5b-aa1a-99371ccfb997}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

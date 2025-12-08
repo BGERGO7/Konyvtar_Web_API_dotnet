@@ -19,6 +19,9 @@ namespace KonyvtarWebApi_BG.DTOs.Author
         [MaxLength(500)]
         public string? Biography { get; set; }
 
+        [Required]
+        public bool Active { get; set; }
+
         public List<int>? BookIds { get; set; }
     }
 }

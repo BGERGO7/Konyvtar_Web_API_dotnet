@@ -8786,24 +8786,31 @@
     ]
   },
   "packageFolders": {
-    "/Users/bgergo7/.nuget/packages/": {}
+    "C:\\Users\\bukkig\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/bgergo7/Desktop/Konyvtar_Web_API_dotnet/KonyvtarWebApi_BG/KonyvtarWebApi_BG.csproj",
+      "projectUniqueName": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj",
       "projectName": "KonyvtarWebApi_BG",
-      "projectPath": "/Users/bgergo7/Desktop/Konyvtar_Web_API_dotnet/KonyvtarWebApi_BG/KonyvtarWebApi_BG.csproj",
-      "packagesPath": "/Users/bgergo7/.nuget/packages/",
-      "outputPath": "/Users/bgergo7/Desktop/Konyvtar_Web_API_dotnet/KonyvtarWebApi_BG/obj/",
+      "projectPath": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\KonyvtarWebApi_BG.csproj",
+      "packagesPath": "C:\\Users\\bukkig\\.nuget\\packages\\",
+      "outputPath": "U:\\13\\Backend\\Konyvtar_Web_API_dotnet\\KonyvtarWebApi_BG\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/Users/bgergo7/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\bukkig\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -8821,7 +8828,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -8879,7 +8887,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.414/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
