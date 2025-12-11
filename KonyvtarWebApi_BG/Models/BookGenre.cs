@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace KonyvtarWebApi_BG.Models
@@ -14,5 +15,13 @@ namespace KonyvtarWebApi_BG.Models
         [ForeignKey("GenreId")]
         [JsonIgnore]
         public Genre? Genre { get; set; }
+
+        [Required]
+        public bool Active { get; set; }
+
+        [Required]
+        public DateTime Created { get; set; }
+
+        public DateTime? Modified { get; set; }
     }
 }
