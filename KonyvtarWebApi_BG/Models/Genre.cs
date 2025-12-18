@@ -18,6 +18,8 @@ namespace KonyvtarWebApi_BG.Models
         [Required]
         public bool Active { get; set; }
 
+        public List<Book> Books { get; set; }
+
         [Required]
         public DateTime Created { get; set; }
 

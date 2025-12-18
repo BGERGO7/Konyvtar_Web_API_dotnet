@@ -56,6 +56,9 @@ namespace KonyvtarWebApi_BG.Models
         [JsonIgnore]
         public List<BookGenre>? BookGenres { get; set; }
 
+        public List<Genre> Genres { get; set; }
+
+        public List<Author> Authors { get; set; }
 
         [Required]
         public bool Active { get; set; }
