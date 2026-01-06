@@ -2,12 +2,12 @@
 
 namespace KonyvtarWebApi_BG.DTOs.Book
 {
-    public class ManageAuthor
+    public class BookChangeStatusDto
     {
         [Required]
         public int BookId { get; set; }
 
         [Required]
-        public int AuthorId { get; set; }
+        public bool Active { get; set; }
     }
 }
