@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KonyvtarWebApi_BG.Models;
 using KonyvtarWebApi_BG.DTOs.Genre;
+using KonyvtarWebApi_BG.DTOs.Book;
 
 namespace KonyvtarWebApi_BG.Controllers
 {
@@ -56,6 +57,81 @@ namespace KonyvtarWebApi_BG.Controllers
                 Created = genre.Created,
                 Modified = genre.Modified
             };
+        }
+
+        // GET: api/Genres/{id}/books
+        [HttpGet("{id}/books")]
+        public async Task<ActionResult<IEnumerable<BookByGenreDto>>> GetBooksByGenre(int id)
+        {
+            var genre = await _context.Genres.FindAsync(id);
+
+            if (genre == null)
+            {
+                return NotFound();
+            }
+
+            var books = await _context.Books
+                .Where(b => b.BookGenres!.Any(bg => bg.GenreId == id)) // Filter books by genre
+                .Select(b => new BookByGenreDto 
+                {
+                    BookId = b.BookId,
+                    HungarianTitle = b.HungarianTitle,
+                    OriginalTitle = b.OriginalTitle,
+                    AuthorId = b.BookAuthors!.Select(ba => ba.AuthorId).ToList(),
+                    AuthorName = b.BookAuthors!.Select(ba => ba.Author!.AuthorName).ToList(),
+                    Genres = b.BookGenres!.Select(bg => bg.Genre!.GenreName ?? string.Empty).ToList(),
+                    CurrentlyAvailable = b.CurrentInventoryCount,
+                    ReleaseYear = b.PublishedYear
+                })
+                .ToListAsync();
+
+            return Ok(books);
+        }
+
+
+        // PUT: api/Genres/5/changeStatus
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}/changeStatus")]
+        public async Task<IActionResult> ChangeGenreStatus(int id, GenreChangeStatusDto genreDto)
+        {
+
+            if (id != genreDto.GenreId)
+            {
+                return BadRequest();
+            }
+
+            var genre = await _context.Genres.FindAsync(id);
+
+            if (genre == null)
+            {
+                return NotFound();
+            }
+
+            
+            genre.Active = genreDto.Active;
+            genre.Modified = DateTime.UtcNow;
+            genre.Created = genre.Created;
+            
+
+            _context.Entry(genre).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                if (!GenreExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    StatusCode(500, new { message = "Adatbázis hiba történt", Error = ex.Message });
+                }
+            }
+
+            return NoContent();
         }
 
         // PUT: api/Genres/5

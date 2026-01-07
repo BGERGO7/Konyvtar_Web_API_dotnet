@@ -2,5 +2,7 @@
 {
     public class BookPastBorrowsDto
     {
+        public int BookId { get; set; }
+        public List<int>? PastBorrowStudentIds { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace KonyvtarWebApi_BG.DTOs.Genre
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace KonyvtarWebApi_BG.DTOs.Genre
 {
     public class GenreChangeStatusDto
     {
