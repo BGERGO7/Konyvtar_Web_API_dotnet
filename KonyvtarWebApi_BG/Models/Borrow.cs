@@ -1,7 +1,4 @@
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
-using Microsoft.EntityFrameworkCore;
 
 namespace KonyvtarWebApi_BG.Models
 {
@@ -19,15 +16,13 @@ namespace KonyvtarWebApi_BG.Models
 
         public DateTime BorrowDate { get; set; }
 
-        public DateTime DueDate { get; set; } //Kolcsenzes datum + Book.MaxRentDays
-
+        public DateTime DueDate { get; set; }
         public DateTime? ReturnDate { get; set; }
 
         public bool Active { get; set; }
-
         public DateTime Created { get; set; }
-
         public DateTime? Modified { get; set; }
-
+    
+         
     }
 }
