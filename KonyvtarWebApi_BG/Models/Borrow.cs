@@ -7,34 +7,24 @@ namespace KonyvtarWebApi_BG.Models
 {
     public class Borrow
     {
-        [Required]
         public int BorrowId { get; set; }
-
-        [Required]
         public int StudentId { get; set; }
 
         [ForeignKey("StudentId")]
-        [JsonIgnore]
-        public Student? Student { get; set; }
+        public Student Student { get; set; } = null!;
 
-        [Required]
         public int BookId { get; set; }
         [ForeignKey("BookId")]
-        [JsonIgnore]
-        public Book? Book { get; set; }
+        public Book Book { get; set; } = null!;
 
-        [Required]
         public DateTime BorrowDate { get; set; }
 
-        [Required]
         public DateTime DueDate { get; set; } //Kolcsenzes datum + Book.MaxRentDays
 
         public DateTime? ReturnDate { get; set; }
 
-        [Required]
         public bool Active { get; set; }
 
-        [Required]
         public DateTime Created { get; set; }
 
         public DateTime? Modified { get; set; }
