@@ -5,8 +5,8 @@ namespace KonyvtarWebApi_BG.DTOs.Student
     public class StudentCurrentBorrowsDto
     {
         public int StudentId { get; set; }
-        
-        public List<Borrow>? Borrows { get; set; }
+
+        public List<Borrow> Borrows { get; set; } = new List<Borrow>();
 
     }
 }
