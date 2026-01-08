@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KonyvtarWebApi_BG.Models
 {
@@ -9,19 +7,12 @@ namespace KonyvtarWebApi_BG.Models
         public int BookAuthorId { get; set; }
         public int BookId { get; set; }
         [ForeignKey("BookId")]
-        [JsonIgnore]
-        public Book? Book { get; set; }
+        public Book Book { get; set; } = null!;
         public int AuthorId { get; set; }
         [ForeignKey("AuthorId")]
-        [JsonIgnore]
-        public Author? Author { get; set; }
-
-        [Required]
+        public Author Author { get; set; } = null!;
         public bool Active { get; set; }
-
-        [Required]
         public DateTime Created { get; set; }
-
         public DateTime? Modified { get; set; }
     }
 }

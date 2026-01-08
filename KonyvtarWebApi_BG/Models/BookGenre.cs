@@ -9,17 +9,13 @@ namespace KonyvtarWebApi_BG.Models
         public int BookGenreId { get; set; }
         public int BookId { get; set; }
         [ForeignKey("BookId")]
-        [JsonIgnore]
-        public Book? Book { get; set; }
+        public Book Book { get; set; } = null!;
         public int GenreId { get; set; }
         [ForeignKey("GenreId")]
-        [JsonIgnore]
-        public Genre? Genre { get; set; }
+        public Genre Genre { get; set; } = null!;
 
-        [Required]
         public bool Active { get; set; }
 
-        [Required]
         public DateTime Created { get; set; }
 
         public DateTime? Modified { get; set; }
