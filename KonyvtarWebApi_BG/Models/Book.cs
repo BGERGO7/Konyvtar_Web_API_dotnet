@@ -5,67 +5,43 @@ namespace KonyvtarWebApi_BG.Models
 {
     public class Book
     {
-        [Required]
         public int BookId { get; set; }
-        
-        [Required]
-        [MaxLength(200)]
-        public string? HungarianTitle { get; set; }
-        
-        [Required]
-        [MaxLength(200)]
-        public string? OriginalTitle { get; set; }
-        
-        [Required]
-        [MaxLength(200), MinLength(30)]
-        public string? RecommendationText { get; set; }
-        
-        [Required]
+        public string HungarianTitle { get; set; } = null!;
+        public string OriginalTitle { get; set; } = null!;
+        public string RecommendationText { get; set; } = null!;
         public int PublishedYear { get; set; }
-        
-        [Required]
-        [Range(0, int.MaxValue)]
         public int MaxInventoryCount { get; set; }
+        
+        
+        //try-catch a controllerben!!!
 
-        [Required]
-        [Range(0, int.MaxValue)]
-        public int CurrentInventoryCount { get; set; }
+        private int _currentInventoryCount;
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            if (CurrentInventoryCount > MaxInventoryCount)
+        public int CurrentInventoryCount {
+
+            get => _currentInventoryCount;
+            
+            set
             {
-                yield return new ValidationResult(
-                    "Current inventory count cannot exceed maximum inventory count.",
-                    new[] { nameof(CurrentInventoryCount), nameof(MaxInventoryCount) });
+                if (value < 0)
+                    throw new ArgumentException("CurrentInventoryCount cannot be negative");
+                if (value >= MaxInventoryCount)
+                    throw new ArgumentException("CurrentInventoryCount cannot exceed MaxInventoryCount");
+
+                _currentInventoryCount = value;
             }
+
         }
 
-        [Required]
-        public string? Publisher { get; set; }
-
-        [Required]
+        public string Publisher { get; set; } = null!;
         public int MaxRentDays { get; set; }
-
-        [JsonIgnore]
-        public List<Borrow>? Borrows { get; set; }
-
-        [JsonIgnore]
-        public List<BookAuthor>? BookAuthors { get; set; }
-
-        [JsonIgnore]
-        public List<BookGenre>? BookGenres { get; set; }
-
-        public List<Genre> Genres { get; set; }
-
-        public List<Author> Authors { get; set; }
-
-        [Required]
+        public List<Borrow> Borrows { get; set; } = new List<Borrow>();
+        public List<BookAuthor> BookAuthors { get; set; } = new List<BookAuthor>();
+        public List<BookGenre> BookGenres { get; set; } = new List<BookGenre>();
+        public List<Genre> Genres { get; set; } = new List<Genre>();
+        public List<Author> Authors { get; set; } = new List<Author>();
         public bool Active { get; set; }
-
-        [Required]
         public DateTime Created { get; set; }
-
         public DateTime? Modified { get; set; }
     }
 }

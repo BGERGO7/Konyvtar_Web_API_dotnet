@@ -4,18 +4,18 @@ namespace KonyvtarWebApi_BG.DTOs.Book
 {
     public class BookCreateDto
     {
-        
+
         [Required]
         [MaxLength(200)]
-        public string? HungarianTitle { get; set; }
-        
+        public string HungarianTitle { get; set; } = null!;
+
         [Required]
         [MaxLength(200)]
-        public string? OriginalTitle { get; set; }
+        public string OriginalTitle { get; set; } = null!;
         
         [Required]
         [MaxLength(200), MinLength(30)]
-        public string? RecommendationText { get; set; }
+        public string RecommendationText { get; set; } = null!;
         
         [Required]
         public int PublishedYear { get; set; }
@@ -28,24 +28,14 @@ namespace KonyvtarWebApi_BG.DTOs.Book
         [Range(0, int.MaxValue)]
         public int CurrentInventoryCount { get; set; }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            if (CurrentInventoryCount > MaxInventoryCount)
-            {
-                yield return new ValidationResult(
-                    "Current inventory count cannot exceed maximum inventory count.",
-                    new[] { nameof(CurrentInventoryCount), nameof(MaxInventoryCount) });
-            }
-        }
-
         [Required]
-        public string? Publisher { get; set; }
+        public string Publisher { get; set; } = null!;
 
         [Required]
         public int MaxRentDays { get; set; }
 
-        public List<int>? AuthorIds { get; set; }
+        public List<int> AuthorIds { get; set; } = new List<int>();
 
-        public List<int>? GenreIds { get; set; }    
+        public List<int> GenreIds { get; set; } = new List<int>();    
     }
 }
