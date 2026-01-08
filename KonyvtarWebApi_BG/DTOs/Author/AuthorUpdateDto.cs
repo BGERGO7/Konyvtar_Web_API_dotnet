@@ -17,10 +17,10 @@ namespace KonyvtarWebApi_BG.DTOs.Author
 
         [Required]
         [MaxLength(100)]
-        public string? PlaceOfBirth { get; set; }
+        public string PlaceOfBirth { get; set; } = null!;
 
         [MaxLength(500)]
-        public string? Biography { get; set; }
+        public string Biography { get; set; } = null!;
 
         [Required]
         public bool Active { get; set; }
