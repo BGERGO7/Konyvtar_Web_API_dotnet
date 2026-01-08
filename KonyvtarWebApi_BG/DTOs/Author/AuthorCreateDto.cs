@@ -7,7 +7,7 @@ namespace KonyvtarWebApi_BG.DTOs.Author
     {
         [Required]
         [MaxLength(100)]
-        public string? AuthorName { get; set; }
+        public string AuthorName { get; set; } = null!;
 
         [Required]
         public DateTime DateOfBirth { get; set; }
@@ -17,7 +17,7 @@ namespace KonyvtarWebApi_BG.DTOs.Author
         public string PlaceOfBirth { get; set; } = null!;
 
         [MaxLength(500)]
-        public string? Biography { get; set; }
+        public string Biography { get; set; } = null!;
 
         [Required]
         public bool Active { get; set; }
