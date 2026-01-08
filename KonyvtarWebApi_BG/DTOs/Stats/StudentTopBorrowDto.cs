@@ -3,9 +3,9 @@
     public class StudentTopBorrowDto
     {
         public int StudentId { get; set; }
-        public string StudentName { get; set; }
-        public string Class { get; set; }
-        public string EmailAddress { get; set; }
+        public string StudentName { get; set; } = null!;
+        public string Class { get; set; } = null!;
+        public string EmailAddress { get; set; } = null!;
         public int TotalBorrows { get; set; }
     }
 }
