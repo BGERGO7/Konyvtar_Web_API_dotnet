@@ -1,7 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
-using Microsoft.EntityFrameworkCore;
-
 namespace KonyvtarWebApi_BG.Models
 {
     public class Author
