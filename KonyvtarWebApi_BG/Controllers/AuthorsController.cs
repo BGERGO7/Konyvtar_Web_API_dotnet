@@ -64,9 +64,9 @@ namespace KonyvtarWebApi_BG.Controllers
             };
         }
 
-        // GET: api/Authors/5/status
-        [HttpGet("{id}/status")]
-        public async Task<ActionResult<AuthorStatusDto>> GetAuthorStatus(int id)
+        // PUT: api/Authors/5/changeStatus
+        [HttpPut("{id}/changeStatus")]
+        public async Task<IActionResult> UpdateAuthorStatus(int id, AuthorStatusDto authorDto)
         {
             var author = await _context.Authors.FindAsync(id);
 
@@ -74,12 +74,26 @@ namespace KonyvtarWebApi_BG.Controllers
             {
                 return NotFound();
             }
+            author.Modified = DateTime.UtcNow;
+            author.Active = authorDto.Active;
 
-            return new AuthorStatusDto
+            try
             {
-                AuthorId = author.AuthorId,
-                Active = author.Active
-            };
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                if (!AuthorExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    StatusCode(500, new { message = "Adatbázis hiba történt", Error = ex.Message });
+                }
+            }
+
+            return NoContent();
         }
 
         // PUT: api/Authors/5

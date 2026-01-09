@@ -34,10 +34,13 @@ namespace KonyvtarWebApi_BG.Controllers
                     Active = x.Active,
                     Created = x.Created,
                     Modified = x.Modified,
+                    /*
                     LibraryCardId = x.LibraryCard!.LibraryCardId,
                     CardIssueDate = x.LibraryCard!.IssueDate,
                     CardExpirationDate = x.LibraryCard!.ExpiryDate
+                    */
                 })
+
                 .ToListAsync();
         }
 
@@ -65,10 +68,12 @@ namespace KonyvtarWebApi_BG.Controllers
                 Active = student.Active,
                 Created = student.Created,
                 Modified = student.Modified,
+                /*
                 LibraryCardId = student.LibraryCard!.LibraryCardId,
                 CardIssueDate = student.LibraryCard.IssueDate,
                 CardExpirationDate = student.LibraryCard.ExpiryDate
-            };
+                */
+             };
         }
 
 
@@ -192,8 +197,8 @@ namespace KonyvtarWebApi_BG.Controllers
             };
         }
 
-        // PUT: api/students/{id}/status
-        [HttpPut("{id}/status")]
+        // PUT: api/students/{id}/changeStatus
+        [HttpPut("{id}/changeStatus")]
         public async Task<IActionResult> ChangeStudentStatus(int id, StudentChangeStatus studentDto)
         {
             if (id != studentDto.StudentId)
