@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KonyvtarWebApi_BG.Models;
 using KonyvtarWebApi_BG.DTOs.Author;
+using KonyvtarWebApi_BG.DTOs.Stats;
 
 namespace KonyvtarWebApi_BG.Controllers
 {
@@ -61,6 +62,39 @@ namespace KonyvtarWebApi_BG.Controllers
                 Active = author.Active,
                 Created = author.Created,
                 Modified = author.Modified
+            };
+        }
+
+        // GET: api/Authors/{id}/books
+        [HttpGet("{id}/books")]
+        public async Task<ActionResult<AuthorGetBooksDto>> GetAuthorBooks(int id)
+        {
+            var author = await _context.Authors
+                .Include(x => x.BookAuthors)
+                .ThenInclude(b => b.Book)
+                .FirstOrDefaultAsync(a => a.AuthorId == id);
+
+            if (author == null)
+            {
+                return NotFound();
+            }
+
+            var books = author.BookAuthors
+                .Select(ba => ba.Book!)
+                .Select(b => new BookWithInventoryDto
+                {
+                    BookId = b.BookId,
+                    Title = b.OriginalTitle,
+                    CurrentInventory = b.CurrentInventoryCount
+                })
+                .ToList();
+
+
+            return new AuthorGetBooksDto
+            {
+                AuthorId = author.AuthorId,
+                Books = books
+
             };
         }
 
