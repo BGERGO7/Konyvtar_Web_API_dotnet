@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KonyvtarWebApi_BG.Models;
+using KonyvtarWebApi_BG.DTOs.LibraryCard;
 
 namespace KonyvtarWebApi_BG.Controllers
 {
@@ -19,7 +20,7 @@ namespace KonyvtarWebApi_BG.Controllers
         {
             _context = context;
         }
-
+        /*
         // GET: api/LibraryCards
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LibraryCard>>> GetLibraryCards()
@@ -40,15 +41,66 @@ namespace KonyvtarWebApi_BG.Controllers
 
             return libraryCard;
         }
+        */
 
-        // PUT: api/LibraryCards/5
+
+        // PUT: api/LibraryCards/5/changeExpiryDate
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutLibraryCard(int id, LibraryCard libraryCard)
+        [HttpPut("{id}/changeExpiryDate")]
+        public async Task<IActionResult> LibraryCardChangeDate(int id, LibraryCardChangeDate libraryCardDto)
         {
-            if (id != libraryCard.LibraryCardId)
+            if (id != libraryCardDto.LibraryCardId)
             {
                 return BadRequest();
+            }
+
+            var libraryCard = await _context.LibraryCards.FindAsync(id);
+
+            if (libraryCard == null)
+            {
+                return NotFound();
+            }
+
+            _context.Entry(libraryCard).State = EntityState.Modified;
+
+           
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                if (!LibraryCardExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    StatusCode(500, new { message = "Adatbázis hiba történt", Error = ex.Message });
+                }
+            }
+
+            return NoContent();
+        }
+
+
+
+        // PUT: api/LibraryCards/5/activate
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}/activate")]
+        public async Task<IActionResult> LibraryCardActivate(int id, LibraryCardChangeStatus libraryCardDto)
+        {
+            if (id != libraryCardDto.LibraryCardId)
+            {
+                return BadRequest();
+            }
+
+            var libraryCard = await _context.LibraryCards.FindAsync(id);
+
+            if (libraryCard == null)
+            {
+                return NotFound();
             }
 
             _context.Entry(libraryCard).State = EntityState.Modified;
@@ -57,7 +109,7 @@ namespace KonyvtarWebApi_BG.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateException ex)
             {
                 if (!LibraryCardExists(id))
                 {
@@ -65,7 +117,7 @@ namespace KonyvtarWebApi_BG.Controllers
                 }
                 else
                 {
-                    throw;
+                    StatusCode(500, new { message = "Adatbázis hiba történt", Error = ex.Message });
                 }
             }
 
@@ -75,8 +127,18 @@ namespace KonyvtarWebApi_BG.Controllers
         // POST: api/LibraryCards
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<LibraryCard>> PostLibraryCard(LibraryCard libraryCard)
+        public async Task<ActionResult<LibraryCardCreateDto>> PostLibraryCard(LibraryCardCreateDto libraryCardDto)
         {
+            var libraryCard = new LibraryCard
+            {
+                StudentId = libraryCardDto.StudentId,
+                IssueDate = libraryCardDto.IssueDate,
+                ExpiryDate = libraryCardDto.ExpiryDate,
+                Active = true,
+                Created = DateTime.UtcNow,
+                Modified = DateTime.UtcNow
+            };
+
             _context.LibraryCards.Add(libraryCard);
             await _context.SaveChangesAsync();
 
