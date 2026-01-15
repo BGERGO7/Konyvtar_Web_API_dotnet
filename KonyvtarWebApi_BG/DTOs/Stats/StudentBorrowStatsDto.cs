@@ -13,5 +13,9 @@ namespace KonyvtarWebApi_BG.DTOs.Stats
 
         // A kölcsönzések listája (beágyazva)
         public List<StudentBorrowDetailsDto> Borrows { get; set; } = new List<StudentBorrowDetailsDto>();
+
+        public bool Active { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime? Modified { get; set; }
     }
 }

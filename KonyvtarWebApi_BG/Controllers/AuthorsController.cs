@@ -85,7 +85,10 @@ namespace KonyvtarWebApi_BG.Controllers
                 {
                     BookId = b.BookId,
                     Title = b.OriginalTitle,
-                    CurrentInventory = b.CurrentInventoryCount
+                    CurrentInventory = b.CurrentInventoryCount,
+                    Active = b.Active,
+                    Created = b.Created,
+                    Modified = b.Modified
                 })
                 .ToList();
 
@@ -93,8 +96,7 @@ namespace KonyvtarWebApi_BG.Controllers
             return new AuthorGetBooksDto
             {
                 AuthorId = author.AuthorId,
-                Books = books
-
+                Books = books,
             };
         }
 
@@ -110,6 +112,7 @@ namespace KonyvtarWebApi_BG.Controllers
             }
             author.Modified = DateTime.UtcNow;
             author.Active = authorDto.Active;
+            author.Created = authorDto.Created;
 
             try
             {
@@ -187,7 +190,8 @@ namespace KonyvtarWebApi_BG.Controllers
                 PlaceOfBirth = authorDto.PlaceOfBirth,
                 Biography = authorDto.Biography,
                 Active = authorDto.Active,
-                Created = DateTime.UtcNow
+                Created = DateTime.UtcNow,
+                Modified = authorDto.Modified
             };  
             _context.Authors.Add(author);
             await _context.SaveChangesAsync();

@@ -8,5 +8,10 @@ namespace KonyvtarWebApi_BG.DTOs.Student
 
         public List<Borrow> Borrows { get; set; } = new List<Borrow>();
 
+        public bool Active { get; set; }
+
+        public DateTime Created { get; set; }
+
+        public DateTime? Modified { get; set; }
     }
 }

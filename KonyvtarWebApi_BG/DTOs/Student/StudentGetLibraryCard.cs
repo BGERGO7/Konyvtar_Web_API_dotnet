@@ -9,5 +9,9 @@
         public bool LibrayCardActive { get; set; }
         public DateTime LibraryCardCreated { get; set; }
         public DateTime? LibraryCardModified { get; set; }
+
+        public bool Active { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime? Modified { get; set; }
     }
 }

@@ -36,6 +36,15 @@ namespace KonyvtarWebApi_BG.DTOs.Book
 
         public List<int> AuthorIds { get; set; } = new List<int>();
 
-        public List<int> GenreIds { get; set; } = new List<int>();    
+        public List<int> GenreIds { get; set; } = new List<int>();
+
+        [Required]
+        public bool Active { get; set; }
+
+        [Required]
+        public DateTime Created { get; set; }
+
+        [Required]
+        public DateTime? Modified { get; set; }
     }
 }

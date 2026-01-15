@@ -18,5 +18,9 @@ namespace KonyvtarWebApi_BG.DTOs.Stats
         
         // Szerző adatok (N:M kapcsolat kilapítva)
         public List<string> AuthorNames { get; set; } = null!;
+
+        public bool Active { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime? Modified { get; set; }
     }
 }

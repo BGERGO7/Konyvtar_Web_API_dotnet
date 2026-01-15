@@ -99,6 +99,9 @@ namespace KonyvtarWebApi_BG.Controllers
                 LibrayCardActive = student.LibraryCard.Active,
                 LibraryCardCreated = student.LibraryCard.Created,
                 LibraryCardModified = student.LibraryCard.Modified,
+                Active = student.Active,
+                Created = student.Created,
+                Modified = student.Modified
             };
         }
 
@@ -127,7 +130,10 @@ namespace KonyvtarWebApi_BG.Controllers
                     StudentName = s.StudentName,
                     Class = s.Class,
                     EmailAddress = s.EmailAddress,
-                    TotalBorrows = s.Borrows!.Count
+                    TotalBorrows = s.Borrows!.Count,
+                    Active = s.Active,
+                    Created = s.Created,
+                    Modified = s.Modified
                 })
                 .OrderByDescending(s => s.TotalBorrows)
                 .Take(db) 
@@ -176,7 +182,10 @@ namespace KonyvtarWebApi_BG.Controllers
                     BookId = b.BookId,
                     HungarianTitle = b.Book!.HungarianTitle,
                     OriginalTitle = b.Book.OriginalTitle,
-                    
+                    Active = b.Book.Active,
+                    Created = b.Book.Created,
+                    Modified = b.Book.Modified,
+
                     // Szerző nevek kilapítása
                     AuthorNames = b.Book.BookAuthors!
                         .Select(ba => ba.Author!.AuthorName!)
@@ -193,7 +202,12 @@ namespace KonyvtarWebApi_BG.Controllers
                 // Aktív kölcsönzés: Nincs ReturnDate beállítva
                 ActiveBorrowsCount = student.Borrows.Count(b => b.ReturnDate == null), 
                 
-                Borrows = borrowDetails
+                Borrows = borrowDetails,
+                Active = student.Active,
+                Created = student.Created,
+                Modified = student.Modified
+
+
             };
         }
 
@@ -217,6 +231,7 @@ namespace KonyvtarWebApi_BG.Controllers
 
             student.StudentId = id;
             student.Active = studentDto.Active;
+            student.Created = studentDto.Created;
             student.Modified = DateTime.UtcNow;
 
             try
@@ -268,6 +283,7 @@ namespace KonyvtarWebApi_BG.Controllers
             student.Class = studentDto.Class!;
             student.EmailAddress = studentDto.EmailAddress!;
             student.Active = studentDto.Active;
+            student.Created = studentDto.Created;
             student.Modified = DateTime.UtcNow;
 
             try
@@ -302,6 +318,7 @@ namespace KonyvtarWebApi_BG.Controllers
                 Address = studentDto.Address!,
                 Class = studentDto.Class!,
                 EmailAddress = studentDto.EmailAddress!,
+                Modified = studentDto.Modified,
                 Created = DateTime.UtcNow,
                 Active = true
             };

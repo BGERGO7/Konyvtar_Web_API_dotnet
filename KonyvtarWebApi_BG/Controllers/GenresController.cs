@@ -81,7 +81,10 @@ namespace KonyvtarWebApi_BG.Controllers
                     AuthorName = b.BookAuthors!.Select(ba => ba.Author!.AuthorName).ToList(),
                     Genres = b.BookGenres!.Select(bg => bg.Genre!.GenreName ?? string.Empty).ToList(),
                     CurrentlyAvailable = b.CurrentInventoryCount,
-                    ReleaseYear = b.PublishedYear
+                    ReleaseYear = b.PublishedYear,
+                    Active = b.Active,
+                    Created = b.Created,
+                    Modified = b.Modified
                 })
                 .ToListAsync();
 

@@ -10,5 +10,10 @@
         public List<string> Genres { get; set; } = new List<string>();
         public int CurrentlyAvailable { get; set; }
         public int ReleaseYear { get; set; }
+
+
+        public bool Active { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime? Modified { get; set; }
     }
 }
