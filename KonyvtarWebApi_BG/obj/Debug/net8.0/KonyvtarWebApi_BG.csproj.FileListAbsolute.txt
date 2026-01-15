@@ -513,16 +513,12 @@ U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\bin\Debug\net8.0\runtime
 U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\bin\Debug\net8.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
 U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\bin\Debug\net8.0\runtimes\win-x64\native\comerr64.dll
 U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\bin\Debug\net8.0\runtimes\win-x64\native\gssapi64.dll
 U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\bin\Debug\net8.0\runtimes\win-x64\native\k5sprt64.dll
 U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\bin\Debug\net8.0\runtimes\win-x64\native\krb5_64.dll
 U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\bin\Debug\net8.0\runtimes\win-x64\native\krbcc64.dll
-U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
-U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
-U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
 U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\obj\Debug\net8.0\KonyvtarWebApi_BG.csproj.AssemblyReference.cache
 U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\obj\Debug\net8.0\rpswa.dswa.cache.json
 U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\obj\Debug\net8.0\KonyvtarWebApi_BG.GeneratedMSBuildEditorConfig.editorconfig
@@ -547,3 +543,7 @@ U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\obj\Debug\net8.0\refint\
 U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\obj\Debug\net8.0\KonyvtarWebApi_BG.pdb
 U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\obj\Debug\net8.0\KonyvtarWebApi_BG.genruntimeconfig.cache
 U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\obj\Debug\net8.0\ref\KonyvtarWebApi_BG.dll
+U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\bin\Debug\net8.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\bin\Debug\net8.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\bin\Debug\net8.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+U:\13\Backend\Konyvtar_Web_API_dotnet\KonyvtarWebApi_BG\bin\Debug\net8.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll

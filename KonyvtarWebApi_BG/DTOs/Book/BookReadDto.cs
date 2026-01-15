@@ -13,7 +13,7 @@ namespace KonyvtarWebApi_BG.DTOs.Book
         public int MaxRentDays { get; set; }
 
         public List<string> Authors { get; set; } = new List<string>();
-        public List<string> Genres { get; set; } = new List<string>)();
+        public List<string> Genres { get; set; } = new List<string>();
 
         public bool Active { get; set; }
         public DateTime Created { get; set; }
