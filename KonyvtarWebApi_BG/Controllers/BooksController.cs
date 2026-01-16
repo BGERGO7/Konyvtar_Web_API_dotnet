@@ -164,7 +164,7 @@ namespace KonyvtarWebApi_BG.Controllers
                 RecommendationText = bookDto.RecommendationText,
                 PublishedYear = bookDto.PublishedYear,
                 MaxInventoryCount = bookDto.MaxInventoryCount,
-                CurrentInventoryCount = bookDto.CurrentInventoryCount ?? ,
+                CurrentInventoryCount = bookDto.CurrentInventoryCount,
                 Publisher = bookDto.Publisher,
                 MaxRentDays = bookDto.MaxRentDays,
                 Active = bookDto.Active,
