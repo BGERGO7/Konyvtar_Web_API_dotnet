@@ -8,10 +8,10 @@ namespace KonyvtarWebApi_BG.Models
         public string RecommendationText { get; set; } = null!;
         public int PublishedYear { get; set; }
         public int MaxInventoryCount { get; set; }
-        
-        
-        //try-catch a controllerben!!!
 
+
+        //try-catch a controllerben!!!
+        /*
         private int _currentInventoryCount;
 
         public int CurrentInventoryCount {
@@ -29,7 +29,9 @@ namespace KonyvtarWebApi_BG.Models
             }
 
         }
+        */
 
+        public int CurrentInventoryCount { get; set; }
         public string Publisher { get; set; } = null!;
         public int MaxRentDays { get; set; }
         public List<Borrow> Borrows { get; set; } = new List<Borrow>();
