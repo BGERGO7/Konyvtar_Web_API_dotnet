@@ -97,10 +97,12 @@ namespace KonyvtarWebApi_BG.Controllers
         [HttpPut("{id}/activate")]
         public async Task<IActionResult> LibraryCardActivate(int id, LibraryCardChangeStatus libraryCardDto)
         {
+            /*
             if (id != libraryCardDto.LibraryCardId)
             {
                 return BadRequest();
             }
+            */
 
             var libraryCard = await _context.LibraryCards.FindAsync(id);
 
@@ -108,6 +110,10 @@ namespace KonyvtarWebApi_BG.Controllers
             {
                 return NotFound();
             }
+
+            libraryCard.Active = libraryCardDto.Active;
+            libraryCard.Modified = DateTime.UtcNow;
+
 
             _context.Entry(libraryCard).State = EntityState.Modified;
 
@@ -135,9 +141,23 @@ namespace KonyvtarWebApi_BG.Controllers
         [HttpPost]
         public async Task<ActionResult<LibraryCardCreateDto>> PostLibraryCard(LibraryCardCreateDto libraryCardDto)
         {
+            var student = await _context.Students
+                .Include(s => s.LibraryCard)
+                .FirstOrDefaultAsync(s => s.StudentId == libraryCardDto.StudentId);
+
+            if (student == null)
+            {
+                return NotFound(new { message = "A megadott diák nem létezik." });
+            }
+
+            if (student.LibraryCard != null)
+            {
+                return BadRequest(new { message = "A diák már rendelkezik könyvtárkártyával." });
+            }
+
             var libraryCard = new LibraryCard
             {
-                StudentId = libraryCardDto.StudentId,
+                StudentId = student.StudentId,
                 IssueDate = libraryCardDto.IssueDate,
                 ExpiryDate = libraryCardDto.ExpiryDate,
                 Active = true,
