@@ -2,18 +2,9 @@
 
 namespace KonyvtarWebApi_BG.DTOs.Book
 {
-    public class BookChangeStatusDto
+    public class BookStatusDto
     {
         [Required]
-        public int BookId { get; set; }
-
-        [Required]
         public bool Active { get; set; }
-
-        [Required]
-        public DateTime Created { get; set; }
-
-        [Required]
-        public DateTime? Modified { get; set; }
     }
 }

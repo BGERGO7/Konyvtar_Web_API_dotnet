@@ -2,9 +2,9 @@
 
 namespace KonyvtarWebApi_BG.DTOs.Book
 {
-    public class BookStatusDto
+    public class BookChangeInventoryDto
     {
         [Required]
-        public bool Active { get; set; }
+        public int CurrentInventoryCount { get; set; }
     }
 }

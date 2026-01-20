@@ -87,7 +87,7 @@ namespace KonyvtarWebApi_BG.Controllers
 
         // PUT: api/Books/5/status
         [HttpPut("{id}/status")]
-        public async Task<IActionResult> PutBookStatus(int id, BookStatusDto bookDto)
+        public async Task<IActionResult> PutBookStatus(int id, BookChangeStatusDto bookDto)
         {
             /*
             if (id != bookDto.BookId)
@@ -106,6 +106,57 @@ namespace KonyvtarWebApi_BG.Controllers
 
             
             book.Active = bookDto.Active;
+            book.Modified = DateTime.UtcNow;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                if (!BookExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    StatusCode(500, new { message = "Adatbázis hiba történt", Error = ex.Message });
+                }
+            }
+
+            return NoContent();
+        }
+
+        // PUT: api/Books/5/changeInventory
+        [HttpPut("{id}/status")]
+        public async Task<IActionResult> PutBookInventory(int id, BookChangeInventoryDto bookDto)
+        {
+            /*
+            if (id != bookDto.BookId)
+            {
+                return BadRequest();
+            }
+            */
+
+            var book = await _context.Books
+                .FirstOrDefaultAsync(b => b.BookId == id);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            if(bookDto.CurrentInventoryCount > book.MaxInventoryCount)
+            {                 
+                return BadRequest("CurrentInventoryCount cannot be greater than MaxInventoryCount.");
+            }else if(bookDto.CurrentInventoryCount < 0)
+            {
+                return BadRequest("CurrentInventoryCount cannot be less than 0.");
+            }else
+            {
+                book.CurrentInventoryCount = bookDto.CurrentInventoryCount;
+            }
+            
             book.Modified = DateTime.UtcNow;
 
             try
