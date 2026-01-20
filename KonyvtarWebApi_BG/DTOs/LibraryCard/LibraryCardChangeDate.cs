@@ -4,12 +4,14 @@ namespace KonyvtarWebApi_BG.DTOs.LibraryCard
 {
     public class LibraryCardChangeDate
     {
+        /*
         [Required]
         public int LibraryCardId { get; set; }
-
+        */
         [Required]
         public DateTime ExpiryDate { get; set; }
 
+        /*
         [Required]
         public bool Active { get; set; }
 
@@ -18,5 +20,6 @@ namespace KonyvtarWebApi_BG.DTOs.LibraryCard
 
         [Required]
         public DateTime? Modified { get; set; }
+        */
     }
 }

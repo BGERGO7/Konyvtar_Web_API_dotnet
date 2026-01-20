@@ -97,12 +97,12 @@ namespace KonyvtarWebApi_BG.Controllers
         [HttpPut("{id}/changeStatus")]
         public async Task<IActionResult> ChangeGenreStatus(int id, GenreChangeStatusDto genreDto)
         {
-
+            /*
             if (id != genreDto.GenreId)
             {
                 return BadRequest();
             }
-
+            */
             var genre = await _context.Genres.FindAsync(id);
 
             if (genre == null)
@@ -158,7 +158,7 @@ namespace KonyvtarWebApi_BG.Controllers
             genre.GenreName = genreDto.GenreName!;
             genre.Active = genreDto.Active;
             genre.Modified = DateTime.UtcNow;
-            genre.Created = genre.Created;
+            //genre.Created = genre.Created;
 
             _context.Entry(genre).State = EntityState.Modified;
 

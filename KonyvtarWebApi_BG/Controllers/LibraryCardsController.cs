@@ -49,10 +49,12 @@ namespace KonyvtarWebApi_BG.Controllers
         [HttpPut("{id}/changeExpiryDate")]
         public async Task<IActionResult> LibraryCardChangeDate(int id, LibraryCardChangeDate libraryCardDto)
         {
+            /*
             if (id != libraryCardDto.LibraryCardId)
             {
                 return BadRequest();
             }
+            */
 
             var libraryCard = await _context.LibraryCards.FindAsync(id);
 
@@ -60,6 +62,10 @@ namespace KonyvtarWebApi_BG.Controllers
             {
                 return NotFound();
             }
+
+            libraryCard.ExpiryDate = libraryCardDto.ExpiryDate;
+            libraryCard.Modified = DateTime.UtcNow;
+            
 
             _context.Entry(libraryCard).State = EntityState.Modified;
 

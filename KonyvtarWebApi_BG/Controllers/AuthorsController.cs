@@ -112,7 +112,7 @@ namespace KonyvtarWebApi_BG.Controllers
             }
             author.Modified = DateTime.UtcNow;
             author.Active = authorDto.Active;
-            author.Created = authorDto.Created;
+            
 
             try
             {

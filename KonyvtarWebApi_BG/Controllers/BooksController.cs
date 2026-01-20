@@ -85,6 +85,48 @@ namespace KonyvtarWebApi_BG.Controllers
             };
         }
 
+        // PUT: api/Books/5/status
+        [HttpPut("{id}/status")]
+        public async Task<IActionResult> PutBookStatus(int id, BookStatusDto bookDto)
+        {
+            /*
+            if (id != bookDto.BookId)
+            {
+                return BadRequest();
+            }
+            */
+
+            var book = await _context.Books
+                .FirstOrDefaultAsync(b => b.BookId == id);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            
+            book.Active = bookDto.Active;
+            book.Modified = DateTime.UtcNow;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                if (!BookExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    StatusCode(500, new { message = "Adatbázis hiba történt", Error = ex.Message });
+                }
+            }
+
+            return NoContent();
+        }
+
         // PUT: api/Books/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

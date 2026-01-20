@@ -215,10 +215,12 @@ namespace KonyvtarWebApi_BG.Controllers
         [HttpPut("{id}/changeStatus")]
         public async Task<IActionResult> ChangeStudentStatus(int id, StudentChangeStatus studentDto)
         {
+            /*
             if (id != studentDto.StudentId)
             {
                 return BadRequest();
             }
+            */
 
             //_context.Entry(studentDto).State = EntityState.Modified;
 
@@ -231,7 +233,7 @@ namespace KonyvtarWebApi_BG.Controllers
 
             student.StudentId = id;
             student.Active = studentDto.Active;
-            student.Created = studentDto.Created;
+           
             student.Modified = DateTime.UtcNow;
 
             try
