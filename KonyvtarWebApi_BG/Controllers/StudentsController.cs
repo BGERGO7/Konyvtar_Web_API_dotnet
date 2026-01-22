@@ -166,33 +166,6 @@ namespace KonyvtarWebApi_BG.Controllers
             };
         }
 
-        // PUT: api/students/{id}/changeStatus
-        [HttpPut("{id}/changeStatus")]
-        public async Task<IActionResult> ChangeStudentStatus(int id, StudentChangeStatus studentDto)
-        {
-            // Itt NEM szűrünk Active-ra, mert pont azt akarjuk módosítani (pl. visszakapcsolni)
-            var student = await _context.Students.FindAsync(id); 
-
-            if (student == null)
-            {
-                return NotFound();
-            }
-
-            student.Active = studentDto.Active;
-            student.Modified = DateTime.UtcNow;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException ex)
-            {
-                 return StatusCode(500, new { message = "Adatbázis hiba történt", Error = ex.Message });
-            }
-
-            return NoContent();
-        }
-
         // PUT: api/Students/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStudent(int id, StudentUpdateDto studentDto)
@@ -265,22 +238,6 @@ namespace KonyvtarWebApi_BG.Controllers
             await _context.SaveChangesAsync();
             
             return CreatedAtAction("GetStudent", new { id = student.StudentId }, MapToDto(student));
-        }
-
-        // DELETE: api/Students/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteStudent(int id)
-        {
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
-            {
-                return NotFound();
-            }
-
-            _context.Students.Remove(student);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
         
         private bool StudentExists(int id)

@@ -26,38 +26,57 @@ namespace KonyvtarWebApi_BG.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GenreReadDto>>> GetGenres()
         {
-            var genres = await _context.Genres.ToListAsync(); 
-
-            return genres.Select(g => MapToDto(g)).ToList();
+            return await _context.Genres
+            .Where(x => x.Active) // Soft delete szűrés
+            .Select(x => new GenreReadDto
+            {
+                GenreId = x.GenreId,
+                GenreName = x.GenreName,
+                Active = x.Active,
+                Created = x.Created,
+                Modified = x.Modified
+            })
+            .ToListAsync();
         }
 
         // GET: api/Genres/5
         [HttpGet("{id}")]
         public async Task<ActionResult<GenreReadDto>> GetGenre(int id)
         {
-            var genre = await _context.Genres.FindAsync(id);
+            // FindAsync helyett query Active szűréssel
+            var genre = await _context.Genres
+                .Where(g => g.Active)
+                .FirstOrDefaultAsync(g => g.GenreId == id);
 
             if (genre == null)
             {
                 return NotFound();
             }
 
-            return MapToDto(genre);
+            return new GenreReadDto
+            {
+                GenreId = genre.GenreId,
+                GenreName = genre.GenreName,
+                Active = genre.Active,
+                Created = genre.Created,
+                Modified = genre.Modified
+            };
         }
 
         // GET: api/Genres/{id}/books
         [HttpGet("{id}/books")]
         public async Task<ActionResult<IEnumerable<BookByGenreDto>>> GetBooksByGenre(int id)
         {
-            var genre = await _context.Genres.FindAsync(id);
+            // Csak aktív műfajnál adunk vissza könyveket
+            var genreExists = await _context.Genres.AnyAsync(g => g.GenreId == id && g.Active);
 
-            if (genre == null)
+            if (!genreExists)
             {
                 return NotFound();
             }
 
             var books = await _context.Books
-                .Where(b => b.BookGenres!.Any(bg => bg.GenreId == id)) // Filter books by genre
+                .Where(b => b.Active && b.BookGenres!.Any(bg => bg.GenreId == id)) // Könyv is legyen aktív
                 .Select(b => new BookByGenreDto 
                 {
                     BookId = b.BookId,
