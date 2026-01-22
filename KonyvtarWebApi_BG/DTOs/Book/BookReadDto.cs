@@ -1,3 +1,5 @@
+using KonyvtarWebApi_BG.DTOs.Stats;
+
 namespace KonyvtarWebApi_BG.DTOs.Book
 {
     public class BookReadDto
@@ -12,8 +14,8 @@ namespace KonyvtarWebApi_BG.DTOs.Book
         public string Publisher { get; set; } = null!;
         public int MaxRentDays { get; set; }
 
-        public List<string> Authors { get; set; } = new List<string>();
-        public List<string> Genres { get; set; } = new List<string>();
+        public List<AuthorForStatDto> Authors { get; set; } = new List<AuthorForStatDto>();
+        public List<GenreForStatDto> Genres { get; set; } = new List<GenreForStatDto>();
 
         public bool Active { get; set; }
         public DateTime Created { get; set; }

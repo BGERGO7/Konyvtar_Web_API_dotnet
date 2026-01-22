@@ -19,6 +19,7 @@ namespace KonyvtarWebApi_BG.DTOs.Author
         [MaxLength(500)]
         public string Biography { get; set; } = null!;
 
+        /*
         [Required]
         public bool Active { get; set; }
 
@@ -27,5 +28,6 @@ namespace KonyvtarWebApi_BG.DTOs.Author
 
         [Required]
         public DateTime? Modified { get; set; }
-    }
+        */
+        }
 }

@@ -26,43 +26,29 @@ namespace KonyvtarWebApi_BG.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AuthorReadDto>>> GetAuthors()
         {
-            return await _context.Authors
-                .Select(a => new AuthorReadDto
-                {
-                    AuthorId = a.AuthorId,
-                    AuthorName = a.AuthorName,
-                    DateOfBirth = a.DateOfBirth,
-                    PlaceOfBirth = a.PlaceOfBirth,
-                    Biography = a.Biography,
-                    Active = a.Active,
-                    Created = a.Created,
-                    Modified = a.Modified
-                })  
-                .ToListAsync();
+           // Csak az aktív szerzők lekérdezése
+           var authors = await _context.Authors
+               .Where(a => a.Active)
+               .ToListAsync(); 
+
+             return authors.Select(a => MapToDto(a)).ToList();
         }
 
         // GET: api/Authors/5
         [HttpGet("{id}")]
         public async Task<ActionResult<AuthorReadDto>> GetAuthor(int id)
         {
-            var author = await _context.Authors.FindAsync(id);
+            // FindAsync helyett FirstOrDefaultAsync, hogy szűrhessünk az Active mezőre
+            var author = await _context.Authors
+                .Where(a => a.Active)
+                .FirstOrDefaultAsync(a => a.AuthorId == id);
 
             if (author == null)
             {
                 return NotFound();
             }
-
-            return new AuthorReadDto
-            {
-                AuthorId = author.AuthorId,
-                AuthorName = author.AuthorName,
-                DateOfBirth = author.DateOfBirth,
-                PlaceOfBirth = author.PlaceOfBirth,
-                Biography = author.Biography,
-                Active = author.Active,
-                Created = author.Created,
-                Modified = author.Modified
-            };
+            
+            return MapToDto(author);
         }
 
         // GET: api/Authors/{id}/books
@@ -72,6 +58,7 @@ namespace KonyvtarWebApi_BG.Controllers
             var author = await _context.Authors
                 .Include(x => x.BookAuthors)
                 .ThenInclude(b => b.Book)
+                .Where(a => a.Active) // Itt is szűrjük a szerzőt
                 .FirstOrDefaultAsync(a => a.AuthorId == id);
 
             if (author == null)
@@ -80,11 +67,12 @@ namespace KonyvtarWebApi_BG.Controllers
             }
 
             var books = author.BookAuthors
+                .Where(ba => ba.Book != null && ba.Book.Active) // Csak aktív könyveket mutassunk
                 .Select(ba => ba.Book!)
                 .Select(b => new BookWithInventoryDto
                 {
                     BookId = b.BookId,
-                    Title = b.OriginalTitle,
+                    Title = b.OriginalTitle, 
                     CurrentInventory = b.CurrentInventoryCount,
                     Active = b.Active,
                     Created = b.Created,
@@ -92,49 +80,22 @@ namespace KonyvtarWebApi_BG.Controllers
                 })
                 .ToList();
 
-
             return new AuthorGetBooksDto
             {
                 AuthorId = author.AuthorId,
+                AuthorName = author.AuthorName,
                 Books = books,
             };
         }
 
-        // PUT: api/Authors/5/changeStatus
-        [HttpPut("{id}/changeStatus")]
-        public async Task<IActionResult> UpdateAuthorStatus(int id, AuthorStatusDto authorDto)
-        {
-            var author = await _context.Authors.FindAsync(id);
+        // Többi metódus (PUT, POST) maradhat a régiben, 
+        // de a PUT-nál érdemes figyelni, hogy Active státusztól függetlenül módosítható-e.
+        // Általában módosításnál használhatjuk a FindAsync-ot közvetlenül, 
+        // vagy ha szigorúak vagyunk, ott is szűrhetünk.
 
-            if (author == null)
-            {
-                return NotFound();
-            }
-            author.Modified = DateTime.UtcNow;
-            author.Active = authorDto.Active;
-            
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException ex)
-            {
-                if (!AuthorExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    StatusCode(500, new { message = "Adatbázis hiba történt", Error = ex.Message });
-                }
-            }
-
-            return NoContent();
-        }
-
+        // ... (PUT, POST implementációk változatlanok maradhatnak a korábbi kód alapján) ...
+        
         // PUT: api/Authors/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAuthor(int id, AuthorUpdateDto authorDto)
         {
@@ -143,7 +104,9 @@ namespace KonyvtarWebApi_BG.Controllers
                 return BadRequest();
             }
 
-            var author = await _context.Authors.FindAsync(id);
+            // Módosítani engedjük az inaktívat is (pl. visszaaktiválás miatt), 
+            // ezért itt nem szűrünk Active-ra.
+            var author = await _context.Authors.FindAsync(id); 
 
             if (author == null) {
                 return NotFound();
@@ -156,9 +119,6 @@ namespace KonyvtarWebApi_BG.Controllers
             author.Active = authorDto.Active;
             author.Modified = DateTime.UtcNow;
 
-
-            //_context.Entry(author).State = EntityState.Modified;
-
             try
             {
                 await _context.SaveChangesAsync();
@@ -171,53 +131,56 @@ namespace KonyvtarWebApi_BG.Controllers
                 }
                 else
                 {
-                    StatusCode(500, new { message = "Adatbázis hiba történt", Error = ex.Message });
+                    return StatusCode(500, new { message = "Adatbázis hiba történt", Error = ex.Message });
                 }
             }
 
             return NoContent();
         }
-
+        
         // POST: api/Authors
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Author>> PostAuthor(AuthorCreateDto authorDto)
         {
+            var now = DateTime.UtcNow;
+
             var author = new Author
             {
                 AuthorName = authorDto.AuthorName,
-                DateOfBirth = authorDto.DateOfBirth,
                 PlaceOfBirth = authorDto.PlaceOfBirth,
+                DateOfBirth = authorDto.DateOfBirth,
                 Biography = authorDto.Biography,
-                Active = authorDto.Active,
-                Created = DateTime.UtcNow,
-                Modified = authorDto.Modified
-            };  
+                Active = true,          
+                Created = now,
+                Modified = now
+            };
+
             _context.Authors.Add(author);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAuthor", new { id = author.AuthorId }, author);
-        }
+            var createdAuthorDto = MapToDto(author);
 
-        // DELETE: api/Authors/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAuthor(int id)
-        {
-            var author = await _context.Authors.FindAsync(id);
-            if (author == null)
-            {
-                return NotFound();
-            }
-
-            _context.Authors.Remove(author);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return CreatedAtAction("GetAuthor", new { id = author.AuthorId }, createdAuthorDto);
         }
 
         private bool AuthorExists(int id)
         {
             return _context.Authors.Any(e => e.AuthorId == id);
+        }
+
+        private AuthorReadDto MapToDto(Author author)
+        {
+            return new AuthorReadDto
+            {
+                AuthorId = author.AuthorId,
+                AuthorName = author.AuthorName,
+                DateOfBirth = author.DateOfBirth,
+                PlaceOfBirth = author.PlaceOfBirth,
+                Biography = author.Biography,
+                Active = author.Active,
+                Created = author.Created,
+                Modified = author.Modified
+            };
         }
     }
 }

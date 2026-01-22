@@ -3,7 +3,7 @@
     public class BookWithInventoryDto
     {
         public int BookId { get; set; }
-        public string Title { get; set; } = null!;
+        public string Title { get; set; } = string.Empty;
         public int CurrentInventory { get; set; }
         public bool Active { get; set; }
         public DateTime Created { get; set; }

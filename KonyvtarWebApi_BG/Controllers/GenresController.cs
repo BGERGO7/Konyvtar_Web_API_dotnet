@@ -26,16 +26,9 @@ namespace KonyvtarWebApi_BG.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GenreReadDto>>> GetGenres()
         {
-            return await _context.Genres
-            .Select(x => new GenreReadDto
-            {
-                GenreId = x.GenreId,
-                GenreName = x.GenreName,
-                Active = x.Active,
-                Created = x.Created,
-                Modified = x.Modified
-            })
-            .ToListAsync();
+            var genres = await _context.Genres.ToListAsync(); 
+
+            return genres.Select(g => MapToDto(g)).ToList();
         }
 
         // GET: api/Genres/5
@@ -49,14 +42,7 @@ namespace KonyvtarWebApi_BG.Controllers
                 return NotFound();
             }
 
-            return new GenreReadDto
-            {
-                GenreId = genre.GenreId,
-                GenreName = genre.GenreName,
-                Active = genre.Active,
-                Created = genre.Created,
-                Modified = genre.Modified
-            };
+            return MapToDto(genre);
         }
 
         // GET: api/Genres/{id}/books
@@ -89,53 +75,7 @@ namespace KonyvtarWebApi_BG.Controllers
                 .ToListAsync();
 
             return Ok(books);
-        }
-
-
-        // PUT: api/Genres/5/changeStatus
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}/changeStatus")]
-        public async Task<IActionResult> ChangeGenreStatus(int id, GenreChangeStatusDto genreDto)
-        {
-            /*
-            if (id != genreDto.GenreId)
-            {
-                return BadRequest();
-            }
-            */
-            var genre = await _context.Genres.FindAsync(id);
-
-            if (genre == null)
-            {
-                return NotFound();
-            }
-
-            
-            genre.Active = genreDto.Active;
-            genre.Modified = DateTime.UtcNow;
-            genre.Created = genre.Created;
-            
-
-            _context.Entry(genre).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException ex)
-            {
-                if (!GenreExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    StatusCode(500, new { message = "Adatbázis hiba történt", Error = ex.Message });
-                }
-            }
-
-            return NoContent();
-        }
+        }  
 
         // PUT: api/Genres/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -197,9 +137,11 @@ namespace KonyvtarWebApi_BG.Controllers
             _context.Genres.Add(genre);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGenre", new { id = genre.GenreId }, genre);
-        }
+            var createdGenre = MapToDto(genre); 
 
+            return CreatedAtAction("GetGenre", new { id = genre.GenreId }, createdGenre);
+        }
+        /*
         // DELETE: api/Genres/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGenre(int id)
@@ -215,10 +157,23 @@ namespace KonyvtarWebApi_BG.Controllers
 
             return NoContent();
         }
+        */
 
         private bool GenreExists(int id)
         {
             return _context.Genres.Any(e => e.GenreId == id);
+        }
+
+        private GenreReadDto MapToDto(Genre genre)
+        {
+            return new GenreReadDto
+            {
+                GenreId = genre.GenreId,
+                GenreName = genre.GenreName,
+                Active = genre.Active,
+                Created = genre.Created,
+                Modified = genre.Modified
+            };
         }
     }
 }

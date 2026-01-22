@@ -21,27 +21,12 @@ namespace KonyvtarWebApi_BG.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StudentReadDto>>> GetStudents()
         {
-            return await _context.Students
-                .Include(a => a.LibraryCard)
-                .Select(x => new StudentReadDto
-                {
-                    StudentId = x.StudentId,
-                    StudentName = x.StudentName,
-                    PlaceOfBirth = x.PlaceOfBirth,
-                    DateOfBirth = x.DateOfBirth,
-                    Address = x.Address,
-                    EmailAddress = x.EmailAddress,
-                    Active = x.Active,
-                    Created = x.Created,
-                    Modified = x.Modified,
-                    /*
-                    LibraryCardId = x.LibraryCard!.LibraryCardId,
-                    CardIssueDate = x.LibraryCard!.IssueDate,
-                    CardExpirationDate = x.LibraryCard!.ExpiryDate
-                    */
-                })
-
+            // CSAK az aktív diákokat kérjük le
+            var students = await _context.Students
+                .Where(x => x.Active) 
                 .ToListAsync();
+
+            return students.Select(s => MapToDto(s)).ToList();
         }
 
         // GET: api/Students/5
@@ -49,7 +34,8 @@ namespace KonyvtarWebApi_BG.Controllers
         public async Task<ActionResult<StudentReadDto>> GetStudent(int id)
         {
             var student = await _context.Students
-                .Include(x => x.LibraryCard)
+                // Szűrés aktívra, így ha inaktív, null-t ad vissza -> NotFound lesz
+                .Where(x => x.Active)
                 .FirstOrDefaultAsync(y => y.StudentId == id);
 
             if (student == null)
@@ -57,43 +43,36 @@ namespace KonyvtarWebApi_BG.Controllers
                 return NotFound();
             }
 
-            return new StudentReadDto 
-            {
-                StudentId = student.StudentId,
-                StudentName = student.StudentName,
-                PlaceOfBirth = student.PlaceOfBirth,
-                DateOfBirth = student.DateOfBirth,
-                Address = student.Address,
-                EmailAddress = student.EmailAddress,
-                Active = student.Active,
-                Created = student.Created,
-                Modified = student.Modified,
-                /*
-                LibraryCardId = student.LibraryCard!.LibraryCardId,
-                CardIssueDate = student.LibraryCard.IssueDate,
-                CardExpirationDate = student.LibraryCard.ExpiryDate
-                */
-             };
+            return MapToDto(student);
         }
-
 
         // GET: api/students/{id}/libraryCard
         [HttpGet("{id}/libraryCard")]
         public async Task<ActionResult<StudentGetLibraryCard>> GetStudentLibraryCard(int id)
         {
+            // Itt is szűrjük a diákot aktívra
             var student = await _context.Students
                 .Include(x => x.LibraryCard)
+                // Opcionális: Ha az olvasójegynek is aktívnak kell lennie ahhoz, hogy lássuk,
+                // akkor szűrhetnénk itt is, de lentebb egyszerűbb ellenőrizni.
+                .Where(x => x.Active)
                 .FirstOrDefaultAsync(y => y.StudentId == id);
 
             if (student == null)
             {
-                return NotFound();
+                return NotFound(); // Ha a diák inaktív vagy nem létezik
+            }
+
+            // Ha nincs olvasójegy, VAGY van, de "törölt" (inaktív)
+            if (student.LibraryCard == null || !student.LibraryCard.Active)
+            {
+                return NotFound("A diáknak nincs aktív olvasójegye.");
             }
 
             return new StudentGetLibraryCard
             {
                 StudentId = student.StudentId,
-                LibraryCardId=student.LibraryCard!.LibraryCardId,
+                LibraryCardId = student.LibraryCard.LibraryCardId,
                 IssueDate = student.LibraryCard.IssueDate,
                 ExpiryDate = student.LibraryCard.ExpiryDate,
                 LibrayCardActive = student.LibraryCard.Active,
@@ -107,30 +86,23 @@ namespace KonyvtarWebApi_BG.Controllers
 
         // GET: api/Students/top/{db}
         [HttpGet("top/{db}")]
-        public async Task<ActionResult<StudentReadDto>> GetTopStudents(int db)
+        public async Task<ActionResult<IEnumerable<StudentTopBorrowDto>>> GetTopStudents(int db)
         {
-            /*
-             Diak azonosito
-            Nev
-            Osztaly
-            Email cim
-
-            Legaktivabb diakok a kolcsonzesek szama alapjan, megadott darabszamig ({id} -> Top5, Top10 stb)
-             */
-
            if(db <= 0)
             {
                 return BadRequest("A darabszámnak pozitív egész számnak kell lennie.");
             }
 
             var topStudents = await _context.Students
+                .Where(s => s.Active) // Csak aktív diákok kerülhetnek a toplistára
                 .Select(s => new StudentTopBorrowDto
                 {
                     StudentId = s.StudentId,
                     StudentName = s.StudentName,
                     Class = s.Class,
                     EmailAddress = s.EmailAddress,
-                    TotalBorrows = s.Borrows!.Count,
+                    // Feltételezzük, hogy a statisztikába a már inaktív (törölt) kölcsönzések nem számítanak bele
+                    TotalBorrows = s.Borrows!.Count(b => b.Active), 
                     Active = s.Active,
                     Created = s.Created,
                     Modified = s.Modified
@@ -140,20 +112,20 @@ namespace KonyvtarWebApi_BG.Controllers
                 .ToListAsync();
 
             return Ok(topStudents);
-
         }
-
 
         // GET: api/students/{id}/borrows
         [HttpGet("{id}/borrows")]
         public async Task<ActionResult<StudentBorrowsStatsDto>> GetStudentBorrows(int id)
         {
-            // 1. Eager Loading a Student -> Borrows -> Book -> BookAuthors -> Author láncra
             var student = await _context.Students
-                .Include(s => s.Borrows!)
+                // 1. Csak aktív Borrow rekordokat töltünk be
+                .Include(s => s.Borrows!.Where(b => b.Active)) 
                 .ThenInclude(b => b.Book!)
                 .ThenInclude(bk => bk.BookAuthors!)
                 .ThenInclude(ba => ba.Author)
+                // 2. A diák maga is legyen aktív
+                .Where(s => s.Active) 
                 .FirstOrDefaultAsync(s => s.StudentId == id);
 
                 if (student == null)
@@ -161,12 +133,7 @@ namespace KonyvtarWebApi_BG.Controllers
                     return NotFound();
                 }
     
-            // 2. Projektálás (Mappelés) a StudentBorrowsStatsDto-ra
-            // EF Core Projection (Select) használata az adatok alakítására.
-
-            // A kölcsönzések listájának elkészítése:
             var borrowDetails = student.Borrows!
-                // Rendezés (pl. legújabb kölcsönzések elöl)
                 .OrderByDescending(b => b.BorrowDate) 
                 .Select(b => new StudentBorrowDetailsDto
                 {
@@ -174,40 +141,28 @@ namespace KonyvtarWebApi_BG.Controllers
                     BorrowDate = b.BorrowDate,
                     DueDate = b.DueDate,
                     ReturnDate = b.ReturnDate,
-                    
-                    // Kiszámított tulajdonság: Lejárt-e (ha nincs visszahozva ÉS az esedékesség elmúlt)
-                    //IsOverdue = b.ReturnDate == null && b.DueDate < DateTime.UtcNow, 
-
-                    // Könyv adatok
                     BookId = b.BookId,
                     HungarianTitle = b.Book!.HungarianTitle,
                     OriginalTitle = b.Book.OriginalTitle,
                     Active = b.Book.Active,
                     Created = b.Book.Created,
                     Modified = b.Book.Modified,
-
-                    // Szerző nevek kilapítása
                     AuthorNames = b.Book.BookAuthors!
                         .Select(ba => ba.Author!.AuthorName!)
                         .ToList()
                 })
                 .ToList();
 
-            // Végleges Statisztikai DTO elkészítése
             return new StudentBorrowsStatsDto
             {
                 StudentId = student.StudentId,
                 StudentName = student.StudentName,
                 TotalBorrows = student.Borrows!.Count,
-                // Aktív kölcsönzés: Nincs ReturnDate beállítva
                 ActiveBorrowsCount = student.Borrows.Count(b => b.ReturnDate == null), 
-                
                 Borrows = borrowDetails,
                 Active = student.Active,
                 Created = student.Created,
                 Modified = student.Modified
-
-
             };
         }
 
@@ -215,25 +170,15 @@ namespace KonyvtarWebApi_BG.Controllers
         [HttpPut("{id}/changeStatus")]
         public async Task<IActionResult> ChangeStudentStatus(int id, StudentChangeStatus studentDto)
         {
-            /*
-            if (id != studentDto.StudentId)
-            {
-                return BadRequest();
-            }
-            */
-
-            //_context.Entry(studentDto).State = EntityState.Modified;
-
-            var student = _context.Students.Find(id);
+            // Itt NEM szűrünk Active-ra, mert pont azt akarjuk módosítani (pl. visszakapcsolni)
+            var student = await _context.Students.FindAsync(id); 
 
             if (student == null)
             {
                 return NotFound();
             }
 
-            student.StudentId = id;
             student.Active = studentDto.Active;
-           
             student.Modified = DateTime.UtcNow;
 
             try
@@ -242,24 +187,13 @@ namespace KonyvtarWebApi_BG.Controllers
             }
             catch (DbUpdateException ex)
             {
-                if (!StudentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    StatusCode(500, new { message = "Adatbázis hiba történt", Error = ex.Message });
-                }
+                 return StatusCode(500, new { message = "Adatbázis hiba történt", Error = ex.Message });
             }
 
             return NoContent();
         }
 
-
-       
-
         // PUT: api/Students/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStudent(int id, StudentUpdateDto studentDto)
         {
@@ -268,16 +202,18 @@ namespace KonyvtarWebApi_BG.Controllers
                 return BadRequest();
             }
 
-            //_context.Entry(studentDto).State = EntityState.Modified;
-
-            var student = _context.Students.Find(id);
+            // Itt az a kérdés, hogy inaktív diákot engedjünk-e szerkeszteni. 
+            // Általában igen, vagy a szerkesztéssel egyben aktiválhatjuk is.
+            // Ha szigorúan vesszük a törlést, akkor itt is kellene a szűrés, 
+            // de adminisztrációs felületen hasznos lehet inaktívat is elérni.
+            // A biztonság kedvéért itt hagyom FindAsync-kal (szűrés nélkül).
+            var student = await _context.Students.FindAsync(id);
             
             if (student == null)
             {
                 return NotFound();
             }
 
-            student.StudentId = id;
             student.StudentName = studentDto.StudentName!;
             student.PlaceOfBirth = studentDto.PlaceOfBirth!;
             student.DateOfBirth = studentDto.DateOfBirth;
@@ -285,7 +221,7 @@ namespace KonyvtarWebApi_BG.Controllers
             student.Class = studentDto.Class!;
             student.EmailAddress = studentDto.EmailAddress!;
             student.Active = studentDto.Active;
-            student.Created = studentDto.Created;
+            
             student.Modified = DateTime.UtcNow;
 
             try
@@ -300,7 +236,7 @@ namespace KonyvtarWebApi_BG.Controllers
                 }
                 else
                 {
-                    StatusCode(500, new { message = "Adatbázis hiba történt", Error = ex.Message });
+                    return StatusCode(500, new { message = "Adatbázis hiba történt", Error = ex.Message });
                 }
             }
 
@@ -308,10 +244,10 @@ namespace KonyvtarWebApi_BG.Controllers
         }
 
         // POST: api/Students
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Student>> PostStudent(StudentCreateDto studentDto)
+        public async Task<ActionResult<StudentReadDto>> PostStudent(StudentCreateDto studentDto)
         {
+            var now = DateTime.UtcNow;
             var student = new Student
             {
                 StudentName = studentDto.StudentName!,
@@ -320,15 +256,15 @@ namespace KonyvtarWebApi_BG.Controllers
                 Address = studentDto.Address!,
                 Class = studentDto.Class!,
                 EmailAddress = studentDto.EmailAddress!,
-                Modified = studentDto.Modified,
-                Created = DateTime.UtcNow,
-                Active = true
+                Active = studentDto.Active,
+                Created = now,
+                Modified = now
             };
 
             _context.Students.Add(student);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetStudent", new { id = student.StudentId }, student);
+            
+            return CreatedAtAction("GetStudent", new { id = student.StudentId }, MapToDto(student));
         }
 
         // DELETE: api/Students/5
@@ -346,10 +282,26 @@ namespace KonyvtarWebApi_BG.Controllers
 
             return NoContent();
         }
-
+        
         private bool StudentExists(int id)
         {
             return _context.Students.Any(e => e.StudentId == id);
+        }
+
+        private static StudentReadDto MapToDto(Student student)
+        {
+            return new StudentReadDto
+            {
+                StudentId = student.StudentId,
+                StudentName = student.StudentName,
+                PlaceOfBirth = student.PlaceOfBirth,
+                DateOfBirth = student.DateOfBirth,
+                Address = student.Address,
+                EmailAddress = student.EmailAddress,
+                Active = student.Active,
+                Created = student.Created,
+                Modified = student.Modified
+            };
         }
     }
 }

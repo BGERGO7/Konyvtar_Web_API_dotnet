@@ -20,41 +20,48 @@ namespace KonyvtarWebApi_BG.Controllers
         {
             _context = context;
         }
-        /*
+        
         // GET: api/LibraryCards
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LibraryCard>>> GetLibraryCards()
+        public async Task<ActionResult<IEnumerable<LibraryCardReadDto>>> GetLibraryCards()
         {
-            return await _context.LibraryCards.ToListAsync();
+            var libraryCards = await _context.LibraryCards
+                .Where(l => l.Active) // Csak aktív kártyák
+                .ToListAsync();
+
+            return libraryCards.Select(l => MapToDto(l)).ToList();
         }
 
         // GET: api/LibraryCards/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<LibraryCard>> GetLibraryCard(int id)
+        public async Task<ActionResult<LibraryCardReadDto>> GetLibraryCard(int id)
         {
-            var libraryCard = await _context.LibraryCards.FindAsync(id);
+            // FindAsync helyett szűrés
+            var libraryCard = await _context.LibraryCards
+                .Where(l => l.Active)
+                .FirstOrDefaultAsync(l => l.LibraryCardId == id);
 
             if (libraryCard == null)
             {
                 return NotFound();
             }
 
-            return libraryCard;
+            return MapToDto(libraryCard);
         }
-        */
-
-
-        // PUT: api/LibraryCards/5/changeExpiryDate
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}/changeExpiryDate")]
-        public async Task<IActionResult> LibraryCardChangeDate(int id, LibraryCardChangeDate libraryCardDto)
+        
+        // PUT: api/LibraryCards/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutLibraryCard(int id, LibraryCardUpdateDto libraryCardDto)
         {
-            /*
             if (id != libraryCardDto.LibraryCardId)
             {
                 return BadRequest();
             }
-            */
+
+            if (libraryCardDto.IssueDate >= libraryCardDto.ExpiryDate)
+            {
+                return BadRequest(new { message = "A kiadási dátum nem lehet későbbi vagy egyenlő a lejárati dátummal." });
+            }
 
             var libraryCard = await _context.LibraryCards.FindAsync(id);
 
@@ -63,65 +70,44 @@ namespace KonyvtarWebApi_BG.Controllers
                 return NotFound();
             }
 
+            // Ha változott a diák azonosítója, ellenőrizzük az új tulajdonost
+            if (libraryCard.StudentId != libraryCardDto.StudentId)
+            {
+                var newStudent = await _context.Students
+                    .Include(s => s.LibraryCard)
+                    .FirstOrDefaultAsync(s => s.StudentId == libraryCardDto.StudentId);
+
+                if (newStudent == null)
+                {
+                    return BadRequest(new { message = "A megadott új tulajdonos (diák) nem létezik." });
+                }
+
+                if (!newStudent.Active)
+                {
+                    return BadRequest(new { message = "A megadott új tulajdonos (diák) inaktív, így nem kaphat kártyát." });
+                }
+
+                // Ellenőrizzük, hogy az új diáknak van-e már MÁSIK kártyája
+                if (newStudent.LibraryCard != null && newStudent.LibraryCard.LibraryCardId != id)
+                {
+                    return BadRequest(new { message = "A választott új tulajdonos már rendelkezik egy másik könyvtárkártyával." });
+                }
+                
+                // Ha minden rendben, átírjuk a tulajdonost
+                libraryCard.StudentId = libraryCardDto.StudentId;
+            }
+
+            // Többi adat frissítése
+            libraryCard.IssueDate = libraryCardDto.IssueDate;
             libraryCard.ExpiryDate = libraryCardDto.ExpiryDate;
-            libraryCard.Modified = DateTime.UtcNow;
-            
-
-            _context.Entry(libraryCard).State = EntityState.Modified;
-
-           
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException ex)
-            {
-                if (!LibraryCardExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    StatusCode(500, new { message = "Adatbázis hiba történt", Error = ex.Message });
-                }
-            }
-
-            return NoContent();
-        }
-
-
-
-        // PUT: api/LibraryCards/5/activate
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}/activate")]
-        public async Task<IActionResult> LibraryCardActivate(int id, LibraryCardChangeStatus libraryCardDto)
-        {
-            /*
-            if (id != libraryCardDto.LibraryCardId)
-            {
-                return BadRequest();
-            }
-            */
-
-            var libraryCard = await _context.LibraryCards.FindAsync(id);
-
-            if (libraryCard == null)
-            {
-                return NotFound();
-            }
-
             libraryCard.Active = libraryCardDto.Active;
             libraryCard.Modified = DateTime.UtcNow;
 
-
-            _context.Entry(libraryCard).State = EntityState.Modified;
-
             try
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateException ex)
+            catch (DbUpdateConcurrencyException)
             {
                 if (!LibraryCardExists(id))
                 {
@@ -129,25 +115,37 @@ namespace KonyvtarWebApi_BG.Controllers
                 }
                 else
                 {
-                    StatusCode(500, new { message = "Adatbázis hiba történt", Error = ex.Message });
+                    throw;
                 }
             }
 
             return NoContent();
         }
+        
 
         // POST: api/LibraryCards
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<LibraryCardCreateDto>> PostLibraryCard(LibraryCardCreateDto libraryCardDto)
         {
+            if(libraryCardDto.IssueDate >= libraryCardDto.ExpiryDate)
+            {
+                return BadRequest(new { message = "A kiadási dátum nem lehet későbbi vagy egyenlő a lejárati dátummal." });
+            }
+
             var student = await _context.Students
                 .Include(s => s.LibraryCard)
                 .FirstOrDefaultAsync(s => s.StudentId == libraryCardDto.StudentId);
 
+            var now = DateTime.UtcNow;
             if (student == null)
             {
                 return NotFound(new { message = "A megadott diák nem létezik." });
+            }
+
+            if (!student.Active)
+            {
+                return BadRequest(new { message = "Inaktív diák nem kaphat könyvtárkártyát." });
             }
 
             if (student.LibraryCard != null)
@@ -157,21 +155,24 @@ namespace KonyvtarWebApi_BG.Controllers
 
             var libraryCard = new LibraryCard
             {
-                StudentId = student.StudentId,
+                StudentId = libraryCardDto.StudentId,
                 IssueDate = libraryCardDto.IssueDate,
                 ExpiryDate = libraryCardDto.ExpiryDate,
                 Active = true,
-                Created = DateTime.UtcNow,
-                Modified = DateTime.UtcNow
+                Created = now,
+                Modified = now
             };
 
             _context.LibraryCards.Add(libraryCard);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLibraryCard", new { id = libraryCard.LibraryCardId }, libraryCard);
-        }
+            var createdDto = MapToDto(libraryCard);
 
+            return CreatedAtAction("GetLibraryCard", new { id = libraryCard.LibraryCardId }, createdDto);
+        }       
+        
         // DELETE: api/LibraryCards/5
+        /*
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLibraryCard(int id)
         {
@@ -186,10 +187,25 @@ namespace KonyvtarWebApi_BG.Controllers
 
             return NoContent();
         }
+        */
 
         private bool LibraryCardExists(int id)
         {
             return _context.LibraryCards.Any(e => e.LibraryCardId == id);
+        }
+
+        private LibraryCardReadDto MapToDto(LibraryCard libraryCard)
+        {
+            return new LibraryCardReadDto
+            {
+                LibraryCardId = libraryCard.LibraryCardId,
+                StudentId = libraryCard.StudentId,
+                IssueDate = libraryCard.IssueDate,
+                ExpiryDate = libraryCard.ExpiryDate,
+                Active = libraryCard.Active,
+                Created = libraryCard.Created,
+                Modified = libraryCard.Modified
+            };
         }
     }
 }

@@ -34,9 +34,11 @@ namespace KonyvtarWebApi_BG.DTOs.Book
         [Required]
         public int MaxRentDays { get; set; }
 
-        //public List<int> AuthorIds { get; set; } = new List<int>();
+        public List<int> AuthorIds { get; set; } = new List<int>();
 
-        //public List<int> GenreIds { get; set; } = new List<int>();
+        public List<int> GenreIds { get; set; } = new List<int>();
+
+        /*
 
         [Required]
         public bool Active { get; set; }
@@ -46,5 +48,6 @@ namespace KonyvtarWebApi_BG.DTOs.Book
 
         [Required]
         public DateTime? Modified { get; set; }
+        */
     }
 }
