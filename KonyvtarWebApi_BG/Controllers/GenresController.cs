@@ -62,39 +62,7 @@ namespace KonyvtarWebApi_BG.Controllers
                 Modified = genre.Modified
             };
         }
-
-        // GET: api/Genres/{id}/books
-        [HttpGet("{id}/books")]
-        public async Task<ActionResult<IEnumerable<BookByGenreDto>>> GetBooksByGenre(int id)
-        {
-            // Csak aktív műfajnál adunk vissza könyveket
-            var genreExists = await _context.Genres.AnyAsync(g => g.GenreId == id && g.Active);
-
-            if (!genreExists)
-            {
-                return NotFound();
-            }
-
-            var books = await _context.Books
-                .Where(b => b.Active && b.BookGenres!.Any(bg => bg.GenreId == id)) // Könyv is legyen aktív
-                .Select(b => new BookByGenreDto 
-                {
-                    BookId = b.BookId,
-                    HungarianTitle = b.HungarianTitle,
-                    OriginalTitle = b.OriginalTitle,
-                    AuthorId = b.BookAuthors!.Select(ba => ba.AuthorId).ToList(),
-                    AuthorName = b.BookAuthors!.Select(ba => ba.Author!.AuthorName).ToList(),
-                    Genres = b.BookGenres!.Select(bg => bg.Genre!.GenreName ?? string.Empty).ToList(),
-                    CurrentlyAvailable = b.CurrentInventoryCount,
-                    ReleaseYear = b.PublishedYear,
-                    Active = b.Active,
-                    Created = b.Created,
-                    Modified = b.Modified
-                })
-                .ToListAsync();
-
-            return Ok(books);
-        }  
+ 
 
         // PUT: api/Genres/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

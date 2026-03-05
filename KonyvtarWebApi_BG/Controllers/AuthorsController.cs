@@ -51,42 +51,8 @@ namespace KonyvtarWebApi_BG.Controllers
             return MapToDto(author);
         }
 
-        // GET: api/Authors/{id}/books
-        [HttpGet("{id}/books")]
-        public async Task<ActionResult<AuthorGetBooksDto>> GetAuthorBooks(int id)
-        {
-            var author = await _context.Authors
-                .Include(x => x.BookAuthors)
-                .ThenInclude(b => b.Book)
-                .Where(a => a.Active) // Itt is szűrjük a szerzőt
-                .FirstOrDefaultAsync(a => a.AuthorId == id);
-
-            if (author == null)
-            {
-                return NotFound();
-            }
-
-            var books = author.BookAuthors
-                .Where(ba => ba.Book != null && ba.Book.Active) // Csak aktív könyveket mutassunk
-                .Select(ba => ba.Book!)
-                .Select(b => new BookWithInventoryDto
-                {
-                    BookId = b.BookId,
-                    Title = b.OriginalTitle, 
-                    CurrentInventory = b.CurrentInventoryCount,
-                    Active = b.Active,
-                    Created = b.Created,
-                    Modified = b.Modified
-                })
-                .ToList();
-
-            return new AuthorGetBooksDto
-            {
-                AuthorId = author.AuthorId,
-                AuthorName = author.AuthorName,
-                Books = books,
-            };
-        }
+        
+        
 
         // Többi metódus (PUT, POST) maradhat a régiben, 
         // de a PUT-nál érdemes figyelni, hogy Active státusztól függetlenül módosítható-e.

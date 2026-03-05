@@ -84,36 +84,6 @@ namespace KonyvtarWebApi_BG.Controllers
             };
         }
 
-        // GET: api/Students/top/{db}
-        [HttpGet("top/{db}")]
-        public async Task<ActionResult<IEnumerable<StudentTopBorrowDto>>> GetTopStudents(int db)
-        {
-           if(db <= 0)
-            {
-                return BadRequest("A darabszámnak pozitív egész számnak kell lennie.");
-            }
-
-            var topStudents = await _context.Students
-                .Where(s => s.Active) // Csak aktív diákok kerülhetnek a toplistára
-                .Select(s => new StudentTopBorrowDto
-                {
-                    StudentId = s.StudentId,
-                    StudentName = s.StudentName,
-                    Class = s.Class,
-                    EmailAddress = s.EmailAddress,
-                    // Feltételezzük, hogy a statisztikába a már inaktív (törölt) kölcsönzések nem számítanak bele
-                    TotalBorrows = s.Borrows!.Count(b => b.Active), 
-                    Active = s.Active,
-                    Created = s.Created,
-                    Modified = s.Modified
-                })
-                .OrderByDescending(s => s.TotalBorrows)
-                .Take(db) 
-                .ToListAsync();
-
-            return Ok(topStudents);
-        }
-
         // GET: api/students/{id}/borrows
         [HttpGet("{id}/borrows")]
         public async Task<ActionResult<StudentBorrowsStatsDto>> GetStudentBorrows(int id)

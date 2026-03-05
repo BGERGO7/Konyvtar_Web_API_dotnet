@@ -6,7 +6,7 @@ namespace KonyvtarWebApi_BG.DTOs.Student
     {
         public int StudentId { get; set; }
 
-        public List<Borrow> Borrows { get; set; } = new List<Borrow>();
+        public List<StudentGetBorrows> Borrows { get; set; } = new List<StudentGetBorrows>();
 
         public bool Active { get; set; }
 

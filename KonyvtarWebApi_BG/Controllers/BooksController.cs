@@ -89,30 +89,6 @@ namespace KonyvtarWebApi_BG.Controllers
             return Ok(history);
         }
 
-        // GET: api/Books/currentlyBorrowed
-        [HttpGet("currentlyBorrowed")]
-        public async Task<ActionResult<IEnumerable<CurrentlyBorrowedBookDto>>> GetCurrentlyBorrowedBooks()
-        {
-            var borrowedBooks = await _context.Borrows // Biztonság kedvéért Set<Borrow>(), ha nincs direkt Borrows property
-                .Include(b => b.Book)
-                .Include(b => b.Student)
-                .Where(b => b.ReturnDate == null) // Csak azokat kérjük le, amiket még nem hoztak vissza
-                .OrderBy(b => b.DueDate)          // A lejárathoz legközelebb esők (vagy már lejártak) legyenek elöl
-                .Select(b => new CurrentlyBorrowedBookDto
-                {
-                    BorrowId = b.BorrowId,
-                    BookId = b.BookId,
-                    HungarianTitle = b.Book.HungarianTitle,
-                    StudentName = b.Student.StudentName,
-                    BorrowDate = b.BorrowDate,
-                    DueDate = b.DueDate,
-                    // Ha a mai dátum nagyobb mint a határidő, akkor lejártnak tekintjük
-                    IsOverdue = DateTime.Now > b.DueDate
-                })
-                .ToListAsync();
-
-            return Ok(borrowedBooks);
-        }
 
         // PUT: api/Books/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -383,23 +359,6 @@ namespace KonyvtarWebApi_BG.Controllers
 
             return CreatedAtAction("GetBook", new { id = book.BookId }, createdBookDto);
         }
-        /*
-        // DELETE: api/Books/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBook(int id)
-        {
-            var book = await _context.Books.FindAsync(id);
-            if (book == null)
-            {
-                return NotFound();
-            }
-
-            _context.Books.Remove(book);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-        */
 
         // GET: api/Books/inStock
         [HttpGet("inStock")]
@@ -416,33 +375,6 @@ namespace KonyvtarWebApi_BG.Controllers
                 .ToListAsync();
 
             return books.Select(b => MapToDto(b)).ToList();
-        }
-
-        // GET: api/Books/top/{count}
-        [HttpGet("top/{count}")]
-        public async Task<ActionResult<IEnumerable<BookTopBorrowDto>>> GetTopBooks(int count)
-        {
-            if (count <= 0)
-            {
-                return BadRequest("A darabszámnak pozitív egész számnak kell lennie.");
-            }
-
-            var topBooks = await _context.Books
-                .Select(b => new BookTopBorrowDto
-                {
-                    BookId = b.BookId,
-                    HungarianTitle = b.HungarianTitle,
-                    OriginalTitle = b.OriginalTitle,
-                    Publisher = b.Publisher,
-                    PublishedYear = b.PublishedYear,
-                    TotalBorrows = b.Borrows.Count, // Count the related Borrow entities
-                    Active = b.Active
-                })
-                .OrderByDescending(b => b.TotalBorrows) // Order by the calculated count
-                .Take(count)
-                .ToListAsync();
-
-            return Ok(topBooks);
         }
 
         private bool BookExists(int id)

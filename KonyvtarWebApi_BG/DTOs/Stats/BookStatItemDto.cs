@@ -1,15 +1,13 @@
 ﻿namespace KonyvtarWebApi_BG.DTOs.Stats
 {
-    public class BookTopBorrowDto
+    public class BookStatItemDto
     {
-        public int BookId { get; set; }
+        public int Id { get; set; }
         public string HungarianTitle { get; set; } = null!;
         public string OriginalTitle { get; set; } = null!;
         public List<AuthorForStatDto> Authors { get; set; } = new List<AuthorForStatDto>();
         public List<GenreForStatDto> Genres { get; set; } = new List<GenreForStatDto>();
-
-        // The count of borrows
-        public int TotalBorrows { get; set; }
-
+        public int TotalCopies { get; set; }
+        public int PublicationYear { get; set; }
     }
 }

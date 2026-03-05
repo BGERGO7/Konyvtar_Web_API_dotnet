@@ -3,6 +3,6 @@
     public class GenreForStatDto
     {
         public int GenreId { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
     }
 }
